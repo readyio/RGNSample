@@ -1,0 +1,54 @@
+{
+  "name": "io.getready.rgn.sample",
+  "displayName": "Ready Games Network SDK. Sample",
+  "version": "0.0.12",
+  "unity": "2020.3",
+  "description": "The Ready Games Network (RGN) is building mobile-first Web3 tools and technologies to democratize access to game creation.",
+  "author": {
+    "name": "Ready Games",
+    "email": "contact@ready.gg",
+    "url": "https://ready.gg/"
+  },
+  "keywords": [
+    "web3",
+    "mobile",
+    "games",
+    "ready",
+    "unity"
+  ],
+  "category": "Unity",
+  "files": [
+    "/README.md",
+    "/README.md.meta",
+    "/package.json",
+    "/package.json.meta",
+    "/Runtime",
+    "/Runtime.meta"
+  ],
+  "samples": [
+    {
+      "displayName": "Demo Scene Sample",
+      "description": "Contains sample demo scene with some basic UI",
+      "path": "Samples/Example"
+    }
+  ],
+  "type": "sample",
+  "dependencies": {
+    "io.getready.rgn.core": "0.0.12",
+    "io.getready.rgn.achievement": "0.0.12",
+    "io.getready.rgn.creator": "0.0.12",
+    "io.getready.rgn.currency": "0.0.12",
+    "io.getready.rgn.impl.firebase": "0.0.12",
+    "io.getready.rgn.gameprogress": "0.0.12",
+    "io.getready.rgn.inventory": "0.0.12",
+    "io.getready.rgn.matchmaking": "0.0.12",
+    "io.getready.rgn.signin.apple": "0.0.12",
+    "io.getready.rgn.signin.email": "0.0.12",
+    "io.getready.rgn.signin.facebook": "0.0.12",
+    "io.getready.rgn.signin.google": "0.0.12",
+    "io.getready.rgn.signin.guest": "0.0.12",
+    "io.getready.rgn.userprofile": "0.0.12",
+    "io.getready.rgn.virtualitems": "0.0.12",
+    "io.getready.rgn.wallets": "0.0.12"
+  }
+}
