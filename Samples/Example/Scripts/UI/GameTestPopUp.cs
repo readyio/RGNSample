@@ -1,23 +1,39 @@
-using RGN;
 using RGN.Modules.Currency;
 using RGN.Modules.GameProgress;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class GameTestPopUp : AbstractPopup
     {
+        [SerializeField] private Button cancelButton;
+        [SerializeField] private Button onGameCompleteButton;
+        [SerializeField] private Button getGameProgressButton;
+        [SerializeField] private Button updateLevelProgressButton;
+        [SerializeField] private Button getLevelProgressButton;
+
+        public override async void Show(bool isInstant, Action onComplete)
+        {
+            cancelButton.onClick.AddListener(OnCloseClick);
+            onGameCompleteButton.onClick.AddListener(OnGameCompleteButtonClick);
+            getGameProgressButton.onClick.AddListener(OnGetGameProgressButtonClick);
+            updateLevelProgressButton.onClick.AddListener(OnUpdateLevelProgressButtonClick);
+            getLevelProgressButton.onClick.AddListener(OnGetLevelProgressButtonClick);
+            base.Show(isInstant, onComplete);
+        }
+
         public async void OnGameCompleteButtonClick()
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             GameModule gameModule = RGNCoreBuilder.I.GetModule<GameModule>();
 
-            RGNOnGameCompleteResult onGameCompleteResult = await gameModule.OnGameComplete(new List<RGNCurrency>()
+            OnGameCompleteResult onGameCompleteResult = await gameModule.OnGameComplete(new List<Currency>()
             {
-                new RGNCurrency()
+                new Currency()
                 {
                     name = "rgnTestCoin",
                     quantity = 25
@@ -36,13 +52,13 @@ namespace ReadyGamesNetwork.Sample.UI
             UIRoot.singleton.ShowPopup<GenericPopup>();
         }
 
-        public async void GetGameProgressButtonClick()
+        public async void OnGetGameProgressButtonClick()
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             GameModule gameModule = RGNCoreBuilder.I.GetModule<GameModule>();
 
-            RGNGameProgress gameProgress = await gameModule.GetGameProgress();
+            GameProgress gameProgress = await gameModule.GetGameProgress();
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 
@@ -75,9 +91,9 @@ namespace ReadyGamesNetwork.Sample.UI
                 }
             };
 
-            RGNLevelProgressResult<LevelData> levelProgressResult = await gameModule.UpdateLevelProgress(levelData, new List<RGNCurrency>()
+            LevelProgressResult<LevelData> levelProgressResult = await gameModule.UpdateLevelProgress(levelData, new List<Currency>()
             {
-                new RGNCurrency()
+                new Currency()
                 {
                     name = "rgnTestCoin",
                     quantity = 25
@@ -95,12 +111,12 @@ namespace ReadyGamesNetwork.Sample.UI
             UIRoot.singleton.ShowPopup<GenericPopup>();
         }
 
-        public async void GetLevelProgressButtonClick()
+        public async void OnGetLevelProgressButtonClick()
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             GameModule gameModule = RGNCoreBuilder.I.GetModule<GameModule>();
-            RGNLevelProgressResult<LevelData> levelProgressResult = await gameModule.GetLevelProgress<LevelData>();
+            LevelProgressResult<LevelData> levelProgressResult = await gameModule.GetLevelProgress<LevelData>();
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 
@@ -115,6 +131,11 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public void OnCloseClick()
         {
+            cancelButton.onClick.RemoveListener(OnCloseClick);
+            onGameCompleteButton.onClick.RemoveListener(OnGameCompleteButtonClick);
+            getGameProgressButton.onClick.RemoveListener(OnGetGameProgressButtonClick);
+            updateLevelProgressButton.onClick.RemoveListener(OnUpdateLevelProgressButtonClick);
+            getLevelProgressButton.onClick.RemoveListener(OnGetLevelProgressButtonClick);
             Hide(true, null);
         }
     }

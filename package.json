@@ -1,7 +1,7 @@
 {
   "name": "io.getready.rgn.sample",
   "displayName": "Ready Games Network SDK. Sample",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "unity": "2020.3",
   "description": "The Ready Games Network (RGN) is building mobile-first Web3 tools and technologies to democratize access to game creation.",
   "author": {

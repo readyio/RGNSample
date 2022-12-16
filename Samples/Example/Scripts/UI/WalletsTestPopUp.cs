@@ -1,19 +1,34 @@
-using RGN;
 using RGN.Modules.Wallets;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class WalletsTestPopUp : AbstractPopup
     {
         [SerializeField] private TMP_InputField createWalletPasswordInput;
         [SerializeField] private Image createWalletPasswordRequireImage;
 
+        [SerializeField] private Button isUserHavePrimaryWalletButton;
+        [SerializeField] private Button getUserWalletsButton;
+        [SerializeField] private Button cancelButton;
+        [SerializeField] private Button createUserWalletButton;
+
         private void Start()
         {
             createWalletPasswordRequireImage.gameObject.SetActive(false);
+        }
+
+        public override void Show(bool isInstant, Action onComplete)
+        {
+            base.Show(isInstant, onComplete);
+
+            isUserHavePrimaryWalletButton.onClick.AddListener(OnIsUserHavePrimaryWalletButtonClick);
+            createUserWalletButton.onClick.AddListener(OnCreateUserWalletButtonClick);
+            getUserWalletsButton.onClick.AddListener(OnGetUserWalletsButtonClick);
+            cancelButton.onClick.AddListener(OnCloseClick);
         }
 
         public async void OnIsUserHavePrimaryWalletButtonClick()
@@ -81,6 +96,11 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public void OnCloseClick()
         {
+            isUserHavePrimaryWalletButton.onClick.RemoveListener(OnIsUserHavePrimaryWalletButtonClick);
+            createUserWalletButton.onClick.RemoveListener(OnCreateUserWalletButtonClick);
+            getUserWalletsButton.onClick.RemoveListener(OnGetUserWalletsButtonClick);
+            cancelButton.onClick.RemoveListener(OnCloseClick);
+
             Hide(true, null);
         }
     }

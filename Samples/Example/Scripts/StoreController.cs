@@ -4,28 +4,28 @@ using RGN.Modules.Currency;
 using System;
 using UnityEngine;
 
-namespace ReadyGamesNetwork.Sample
+namespace RGN.Sample
 {
     public class StoreController : MonoBehaviour
     {
-        public event Action<RGNUserCurrencyData> OnCurrencyDataUpdated = null;
+        public event Action<UserCurrencyData> OnCurrencyDataUpdated = null;
 
-        public RGNCurrencyProductsData productsData = new RGNCurrencyProductsData();
-        public RGNUserCurrencyData currencyData = new RGNUserCurrencyData();
+        public CurrencyProductsData productsData = new CurrencyProductsData();
+        public UserCurrencyData currencyData = new UserCurrencyData();
         public bool ActualDataLoading { get; private set; } = false;
         public bool ActualData { get; private set; } = false;
 
-        public void RaiseOnCurrencyDataUpdated(RGNUserCurrencyData currencyData)
+        public void RaiseOnCurrencyDataUpdated(UserCurrencyData currencyData)
         {
             this.currencyData = currencyData;
             OnCurrencyDataUpdated?.Invoke(currencyData);
         }
 
-        public async void LoadActualDataFromFirebase()
+        public void LoadActualDataFromFirebase()
         {
             ActualDataLoading = true;
 
-            // productsData = await RGNCoreBuilder.I.GetModule<StoreModule>().GetProducts();
+            // productsData = await CoreBuilder.I.GetModule<StoreModule>().GetProducts();
             // List<string> products = new List<string>();
             // productsData.products.ForEach((product) => {
             //     products.Add(product.id);
@@ -39,7 +39,7 @@ namespace ReadyGamesNetwork.Sample
             //     } 
             // });
 
-            RaiseOnCurrencyDataUpdated(new RGNUserCurrencyData()
+            RaiseOnCurrencyDataUpdated(new UserCurrencyData()
             {
                 currencies = ProfileController.CurrentUserData.currencies
             });
@@ -59,10 +59,10 @@ namespace ReadyGamesNetwork.Sample
             });
         }
 
-        public RGNCurrency GetCurrency(string currencyName)
+        public Currency GetCurrency(string currencyName)
         {
-            RGNCurrency firebaseCurrency = currencyData.currencies.Find(x => x.name == currencyName);
-            if (firebaseCurrency == null) firebaseCurrency = new RGNCurrency() { name = currencyName, quantity = 0 };
+            Currency firebaseCurrency = currencyData.currencies.Find(x => x.name == currencyName);
+            if (firebaseCurrency == null) firebaseCurrency = new Currency() { name = currencyName, quantity = 0 };
             return firebaseCurrency;
         }
     }

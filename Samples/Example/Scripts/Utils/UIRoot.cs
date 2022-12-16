@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public sealed class UIRoot : MonoBehaviour
     {

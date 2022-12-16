@@ -1,27 +1,25 @@
-﻿using RGN;
-using RGN.Modules;
-using RGN.Modules.GameProgress;
-using RGN.Modules.UserProfileModule;
+﻿using RGN.Modules.GameProgress;
+using RGN.Modules.UserProfile;
 using System;
 using System.Threading.Tasks;
 
-namespace ReadyGamesNetwork.Sample
+namespace RGN.Sample
 {
     public static class ProfileController
     {
-        public static RGNGameUserFullProfileData CurrentUserData;
+        public static GameUserFullProfileData CurrentUserData;
 
         public static event Action OnAvatarChanged;
 
-        public static async Task<RGNGameUserFullProfileData> LoadAndCacheAsync()
+        public static async Task<GameUserFullProfileData> LoadAndCacheAsync()
         {
-            CurrentUserData = await RGNCoreBuilder.I.GetModule<UserProfileModule<RGNGameUserFullProfileData>>().GetFullUserProfile(RGNCoreBuilder.I.masterAppUser.UserId);
+            CurrentUserData = await RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().GetFullUserProfile(RGNCoreBuilder.I.masterAppUser.UserId);
 
             //if (CurrentUserData != null && !string.IsNullOrEmpty(CurrentUserData.avatarPath))
             //{
             //    TaskCompletionSource<Texture2D> callbackAwaiter = new TaskCompletionSource<Texture2D>();
 
-            //    RGNCoreBuilder.I.GetModule<UserProfileModule<RGNGameUserFullProfileData>>().DownloadAvatar(CurrentUserData.userId, (avatar) =>
+            //    CoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().DownloadAvatar(CurrentUserData.userId, (avatar) =>
             //    {
             //        callbackAwaiter.SetResult(avatar);
             //    });

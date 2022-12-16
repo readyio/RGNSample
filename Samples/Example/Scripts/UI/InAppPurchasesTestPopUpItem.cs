@@ -1,12 +1,13 @@
 ﻿using RGN.Modules.Currency;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class InAppPurchasesTestPopUpItem : MonoBehaviour
     {
-        [SerializeField] private Text description;
+        [SerializeField] private TMP_Text description;
         [SerializeField] private Button buyButton;
 
         private string productId;
@@ -20,7 +21,7 @@ namespace ReadyGamesNetwork.Sample.UI
             buyButton.onClick.AddListener(HandleBuyButtonClick);
         }
 
-        public void Init(RGNCurrencyProduct product)
+        public void Init(CurrencyProduct product)
         {
             productId = product.id;
             description.text = product.id + " " + product.currencyName + " " + product.price.ToString() + " "

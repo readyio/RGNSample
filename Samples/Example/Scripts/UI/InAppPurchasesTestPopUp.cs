@@ -1,22 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using RGN;
-using RGN.Model;
-using RGN.Modules;
 using RGN.Modules.Currency;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class InAppPurchasesTestPopUp : AbstractPopup
     {
+        [SerializeField] private string testId;
+        [SerializeField] private Button closeButton;
+        [SerializeField] private Button buyButton;
         [SerializeField] private GameObject itemTemplate;
         [SerializeField] private Transform itemContent;
 
         private List<InAppPurchasesTestPopUpItem> items = new List<InAppPurchasesTestPopUpItem>();
 
         public override void Show(bool isInstant, Action onComplete) {
+            closeButton.onClick.AddListener(OnCloseClick);
+            buyButton.onClick.AddListener(OnBuyRGNCoinButtonClick);
             base.Show(isInstant, onComplete);
 
             Init();
@@ -40,9 +43,9 @@ namespace ReadyGamesNetwork.Sample.UI
         private async Task InitPurchases() {
             CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
 
-            RGNCurrencyProductsData productsData = await inAppPurchaseModule.GetInAppPurchaseCurrencyData();
+            CurrencyProductsData productsData = await inAppPurchaseModule.GetInAppPurchaseCurrencyData();
 
-            foreach (RGNCurrencyProduct product in productsData.products) {
+            foreach (CurrencyProduct product in productsData.products) {
                 //TODO: you have to register your products in Unity IAP ConfigurationBuilder,
                 // use "product.type" to determine Consumable/Non-Consumable products
 
@@ -57,6 +60,10 @@ namespace ReadyGamesNetwork.Sample.UI
             }
         }
 
+        private void OnBuyRGNCoinButtonClick()
+        {
+            OnBuyRGNCoin(testId);
+        }
         private async void OnBuyProductButtonClick(string productId) {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
@@ -64,11 +71,11 @@ namespace ReadyGamesNetwork.Sample.UI
             // use OnSuccefullPurchase event of IAP Package for calling of our PurchaseProduct method,
             // we don't do purchase validation on your side
             CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
-            RGNUserCurrencyData currencyData = await inAppPurchaseModule.PurchaseCurrencyProduct(productId);
+            UserCurrencyData currencyData = await inAppPurchaseModule.PurchaseCurrencyProduct(productId);
 
             string result = "";
 
-            foreach (RGNCurrency currency in currencyData.currencies) {
+            foreach (Currency currency in currencyData.currencies) {
                 result += "/n" + currency.name + " : " + currency.quantity.ToString();
             }
 
@@ -82,7 +89,7 @@ namespace ReadyGamesNetwork.Sample.UI
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
-        public async void OnBuyRGNCoinButtonClick(string iapUUID) {
+        public async void OnBuyRGNCoin(string iapUUID) {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             //TODO: you need to Call IAP purchase method from Unity IAP Package,
@@ -91,11 +98,11 @@ namespace ReadyGamesNetwork.Sample.UI
             // You will get isoCurrenyCode and localizedPrice from Unity IAP product's metadata
             // More details : https://docs.unity3d.com/Manual/UnityIAPBrowsingMetadata.html
             CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
-            RGNPurchaseRGNCoinResponseData purchaseRGNCoinResult = await inAppPurchaseModule.PurchaseRGNCoin(iapUUID);
+            PurchaseRGNCoinResponseData purchaseRGNCoinResult = await inAppPurchaseModule.PurchaseRGNCoin(iapUUID);
 
             string result = "";
             if (purchaseRGNCoinResult.success) {
-                foreach (RGNCurrency currency in purchaseRGNCoinResult.currencies) {
+                foreach (Currency currency in purchaseRGNCoinResult.currencies) {
                     result += "/n" + currency.name + " : " + currency.quantity.ToString();
                 }
             }

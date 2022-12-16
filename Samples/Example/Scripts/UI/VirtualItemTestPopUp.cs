@@ -1,8 +1,4 @@
-﻿using RGN;
-using RGN.Model;
-using RGN.Modules;
-using RGN.Modules.Inventory;
-using RGN.Modules.Inventory.Models.Responses;
+﻿using RGN.Modules.Inventory;
 using RGN.Modules.VirtualItems;
 using System;
 using ThirdPartyDeveloper.Aeria.DemoWeaponUpgrades;
@@ -10,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class VirtualItemTestPopUp : AbstractPopup
     {
@@ -27,7 +23,7 @@ namespace ReadyGamesNetwork.Sample.UI
         [SerializeField] private Button printCurrentUpgradeValuesPlusNextButton;
         [SerializeField] private Button closeButton;
 
-        private RGNVirtualItem item;
+        private VirtualItem item;
         private bool doesUserOwnTheItem;
 
         public override void Show(bool isInstant, Action onComplete)
@@ -50,7 +46,7 @@ namespace ReadyGamesNetwork.Sample.UI
             closeButton.onClick.AddListener(OnCloseClick);
         }
 
-        internal void Init(RGNVirtualItem item, bool doesUserOwnTheItem)
+        internal void Init(VirtualItem item, bool doesUserOwnTheItem)
         {
             this.item = item;
             this.doesUserOwnTheItem = doesUserOwnTheItem;
@@ -81,10 +77,10 @@ namespace ReadyGamesNetwork.Sample.UI
                 var result = await inventoryModule.GetVirtualItemUpgradesAsync(item.id);
 
                 string message = "No upgrades";
-                if (result.itemUpgrades != null && result.itemUpgrades.Length > 0)
+                if (result.itemUpgrades != null && result.itemUpgrades.Count > 0)
                 {
                     System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                    for (int i = 0; i < result.itemUpgrades.Length; ++i)
+                    for (int i = 0; i < result.itemUpgrades.Count; ++i)
                     {
                         var item = result.itemUpgrades[i];
                         sb.Append("For upgrade ID: '");
@@ -129,35 +125,20 @@ namespace ReadyGamesNetwork.Sample.UI
                 UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
                 InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-                RGNUpgradeVirtualItemResponseData result = await inventoryModule.UpgradeVirtualItemAsync(item.id, upgradeLevel);
+                var result = await inventoryModule.Upgrade(item.id, upgradeLevel);
 
                 string message = "No upgrades";
-                if (result.ownedItems.Length > 0)
+                if (result.itemUpgrades.Count > 0)
                 {
-                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                    for (int i = 0; i < result.ownedItems.Length; ++i)
+                    var sb = new System.Text.StringBuilder();
+                    sb.AppendLine("Upgrades: ");
+                    for (int i = 0; i < result.itemUpgrades.Count; ++i)
                     {
-                        var item = result.ownedItems[i];
-                        sb.Append("Item ID: ");
-                        sb.Append(item.itemId);
-                        sb.Append(", quantity: ");
-                        sb.Append(item.quantity);
-                        sb.Append(", appId: ");
-                        sb.AppendLine(item.purchasableRGNAppId);
-                        if (item.itemUpgrades == null)
-                        {
-                            sb.AppendLine("No upgrades");
-                            continue;
-                        }
-                        sb.AppendLine("Upgrades: ");
-                        for (int j = 0; j < item.itemUpgrades.Length; ++j)
-                        {
-                            var upgrade = item.itemUpgrades[j];
-                            sb.Append("\t ID: ");
-                            sb.Append(upgrade.upgradeId);
-                            sb.Append(", level: ");
-                            sb.AppendLine(upgrade.upgradeLevel.ToString());
-                        }
+                        var upgrade = result.itemUpgrades[i];
+                        sb.Append("\t ID: ");
+                        sb.Append(upgrade.upgradeId);
+                        sb.Append(", level: ");
+                        sb.AppendLine(upgrade.upgradeLevel.ToString());
                     }
                     message = sb.ToString();
                 }
@@ -176,7 +157,9 @@ namespace ReadyGamesNetwork.Sample.UI
         private void OnTryParsePropertiesButtonClick()
         {
             Debug.Log("Trying to parse the properties: " + item.properties);
-            WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(item.properties);
+            var propsForCurrentApp = item.properties.Find(item => item.appIds.Contains("rgn.test"));
+            string properties = propsForCurrentApp.properties;
+            WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(properties);
             string dtoToString = dto.ToString();
             SetEvaluationResultTextAndUpdateContentHeight(dtoToString);
             Debug.Log("Parse result: " + dtoToString);
@@ -188,7 +171,9 @@ namespace ReadyGamesNetwork.Sample.UI
                 ShowPopupAndPrintErrorMessage("Error: User does not own the item, can't get the upgrades");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(item.properties))
+            var propsForCurrentApp = item.properties.Find(item => item.appIds.Contains("rgn.test"));
+            string properties = propsForCurrentApp.properties;
+            if (string.IsNullOrWhiteSpace(properties))
             {
                 ShowPopupAndPrintErrorMessage("Error: The item properties are null or white space");
                 return;
@@ -198,14 +183,14 @@ namespace ReadyGamesNetwork.Sample.UI
                 UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
                 InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-                RGNGetVirtualItemUpgradesResponseData result = await inventoryModule.GetVirtualItemUpgradesAsync(item.id);
+                var result = await inventoryModule.GetVirtualItemUpgradesAsync(item.id);
 
                 int upgradeLevelIndex = 0;
-                if (result.itemUpgrades != null && result.itemUpgrades.Length > 0)
+                if (result.itemUpgrades != null && result.itemUpgrades.Count > 0)
                 {
                     upgradeLevelIndex = result.itemUpgrades[0].upgradeLevel;
                 }
-                WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(item.properties);
+                WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(properties);
                 if (upgradeLevelIndex < 0 || upgradeLevelIndex >= dto.Upgrades.Length)
                 {
                     ShowPopupAndPrintErrorMessage("Error: Current upgrade level exists the upgrades in properties: " + upgradeLevelIndex);

@@ -1,15 +1,15 @@
 using RGN.Modules.Currency;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class CurrenciesTestPopUpItem : MonoBehaviour
     {
-        [SerializeField] private Text nameText;
-        [SerializeField] private Text quantityText;
+        [SerializeField] private TMP_Text nameText;
+        [SerializeField] private TMP_Text quantityText;
 
-        public void Init(RGNCurrency currency)
+        public void Init(Currency currency)
         {
             nameText.text = currency.name;
             quantityText.text = currency.quantity.ToString();

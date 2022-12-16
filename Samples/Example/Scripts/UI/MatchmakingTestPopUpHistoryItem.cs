@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class MatchmakingTestPopUpHistoryItem : MonoBehaviour
     {
@@ -19,7 +19,7 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public void Init(MatchmakingRecord historyRecord)
         {
-            RGNGameUserFullProfileData userData = ProfileController.CurrentUserData;
+            GameUserFullProfileData userData = ProfileController.CurrentUserData;
 
             string userId = userData.userId;
             bool isHost = historyRecord.hostId == userId;

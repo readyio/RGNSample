@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
 using System.Text.RegularExpressions;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class EmailSignUpPanel : AbstractPopup
     {
-        [SerializeField] private InputField emailInputField;
-        [SerializeField] private InputField passwordInputField;
+        [SerializeField] private TMP_InputField emailInputField;
+        [SerializeField] private TMP_InputField passwordInputField;
         [SerializeField] private Button signUpButton;
+        [SerializeField] private Button signInButton;
+        [SerializeField] private Button cancelButton;
 
         private string email = string.Empty;
         private string password = string.Empty;
@@ -31,11 +31,17 @@ namespace ReadyGamesNetwork.Sample.UI
         public override void Show(bool isInstant, Action onComplete) {
             base.Show(isInstant, onComplete);
 
+            signUpButton.onClick.AddListener(OnSignUpClick);
+            signInButton.onClick.AddListener(OnSignInClick);
+            cancelButton.onClick.AddListener(OnCloseClick);
             emailInputField.text = string.Empty;
             passwordInputField.text = string.Empty;
         }
 
         public void OnCloseClick() {
+            signUpButton.onClick.RemoveListener(OnSignUpClick);
+            signInButton.onClick.RemoveListener(OnSignInClick);
+            cancelButton.onClick.RemoveListener(OnCloseClick);
             UIRoot.singleton.HidePopup<EmailSignUpPanel>();
         }
 

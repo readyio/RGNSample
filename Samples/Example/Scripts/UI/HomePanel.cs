@@ -1,16 +1,37 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class HomePanel : AbstractPanel
     {
         [SerializeField] private RawImage playerAvatar;
-        [SerializeField] private Text playerNameLabel;
+        [SerializeField] private TMP_Text playerNameLabel;
+        [SerializeField] private Button editProfileButton;
+        [SerializeField] private Button currenciesTestButton;
+        [SerializeField] private Button gameTestButton;
+        [SerializeField] private Button inventoryTestButton;
+        [SerializeField] private Button storeTestButton;
+        [SerializeField] private Button inAppPurchaseTestButton;
+        [SerializeField] private Button achievementsTestButton;
+        [SerializeField] private Button walletsTestButton;
+        [SerializeField] private Button matchmakingTestButton;
+        [SerializeField] private Button settingsButton;
 
         public override void Show(bool isInstant, Action onComplete)
         {
+            settingsButton.onClick.AddListener(OnSettingsButtonClick);
+            editProfileButton.onClick.AddListener(OnEditProfileButtonClick);
+            currenciesTestButton.onClick.AddListener(OnCurrenciesTestButtonClick);
+            gameTestButton.onClick.AddListener(OnGameTestButtonClick);
+            inventoryTestButton.onClick.AddListener(OnInventoryTestButtonClick);
+            storeTestButton.onClick.AddListener(OnStoreTestButtonClick);
+            inAppPurchaseTestButton.onClick.AddListener(OnInAppPurchasesTestButtonClick);
+            achievementsTestButton.onClick.AddListener(OnAchievementsTestButtonClick);
+            walletsTestButton.onClick.AddListener(OnWalletsTestButtonClick);
+            matchmakingTestButton.onClick.AddListener(OnMatchmakingTestButtonClick);
             Refresh();
             base.Show(isInstant, onComplete);
         }
@@ -22,6 +43,16 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public override void Hide(bool isInstant, Action onComplete)
         {
+            settingsButton.onClick.RemoveListener(OnSettingsButtonClick);
+            editProfileButton.onClick.RemoveListener(OnEditProfileButtonClick);
+            currenciesTestButton.onClick.RemoveListener(OnCurrenciesTestButtonClick);
+            gameTestButton.onClick.RemoveListener(OnGameTestButtonClick);
+            inventoryTestButton.onClick.RemoveListener(OnInventoryTestButtonClick);
+            storeTestButton.onClick.RemoveListener(OnStoreTestButtonClick);
+            inAppPurchaseTestButton.onClick.RemoveListener(OnInAppPurchasesTestButtonClick);
+            achievementsTestButton.onClick.RemoveListener(OnAchievementsTestButtonClick);
+            walletsTestButton.onClick.RemoveListener(OnWalletsTestButtonClick);
+            matchmakingTestButton.onClick.RemoveListener(OnMatchmakingTestButtonClick);
             base.Hide(isInstant, onComplete);
         }
 

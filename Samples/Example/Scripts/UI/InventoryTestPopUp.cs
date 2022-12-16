@@ -1,14 +1,16 @@
-﻿using RGN;
-using RGN.Modules.Inventory;
+﻿using RGN.Modules.Inventory;
 using RGN.Modules.VirtualItems;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class InventoryTestPopUp : AbstractPopup
     {
+        [SerializeField] private Button cancelButton;
         [SerializeField] private GameObject itemTemplate;
         [SerializeField] private Transform itemContent;
 
@@ -16,6 +18,7 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public override void Show(bool isInstant, Action onComplete)
         {
+            cancelButton.onClick.AddListener(OnCloseClick);
             base.Show(isInstant, onComplete);
 
             Init();
@@ -33,24 +36,41 @@ namespace ReadyGamesNetwork.Sample.UI
 
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-            RGNVirtualItems userVirtualItems = await inventoryModule.GetUserVirtualItems();
+            List<string> virtualItemsIds = await GetVirtualItemsInventoryIds();
+            VirtualItemModule virtualItemModule = RGNCoreBuilder.I.GetModule<VirtualItemModule>();
 
-            foreach (RGNVirtualItem virtualItem in userVirtualItems.items)
+            var virtualItems = await virtualItemModule.GetVirtualItemsByIds(virtualItemsIds);
+
+            foreach (VirtualItem virtualItem in virtualItems)
             {
                 GameObject itemGO = Instantiate(itemTemplate, itemContent);
                 itemGO.SetActive(true);
 
                 InventoryTestPopUpItem item = itemGO.GetComponent<InventoryTestPopUpItem>();
 
-                item.Init(this, virtualItem, true, true);//FIXME: provide real values for booleans here
+                item.Init(virtualItem);
                 items.Add(item);
             }
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
-        private async void OnEquipButtonClick(string itemId)
+        private async Task<List<string>> GetVirtualItemsInventoryIds() {
+            List<string> virtualItemsIds = new List<string>();
+
+            InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
+
+            var userVirtualItems = await inventoryModule.GetByAppId(RGNCoreBuilder.I.AppIDForRequests);
+
+            foreach (var inventoryData in userVirtualItems.items)
+            {
+                virtualItemsIds.Add(inventoryData.id);
+            }
+
+            return virtualItemsIds;
+        }
+
+        private void OnEquipButtonClick(string itemId)
         {
             //UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
@@ -72,6 +92,7 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public void OnCloseClick()
         {
+            cancelButton.onClick.RemoveListener(OnCloseClick);
             Hide(true, null);
         }
     }

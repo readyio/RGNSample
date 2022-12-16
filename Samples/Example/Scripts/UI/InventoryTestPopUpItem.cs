@@ -1,23 +1,22 @@
 ﻿using RGN.Modules.VirtualItems;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class InventoryTestPopUpItem : MonoBehaviour
     {
         [SerializeField] private Button openVirtualItemTestPopupButton;
         [SerializeField] private Image baseImage;
-        [SerializeField] private Text nameText;
+        [SerializeField] private TMP_Text nameText;
         [SerializeField] private Button equipButton;
 
         private string itemId;
 
         public delegate void EquipButtonClickDelegate(string itemId);
 
-        private InventoryTestPopUp inventoryTestPopUp;
-        private RGNVirtualItem item;
-        private bool doesUserOwnTheItem;
+        private VirtualItem item;
 
         private void OnEnable()
         {
@@ -27,12 +26,10 @@ namespace ReadyGamesNetwork.Sample.UI
             openVirtualItemTestPopupButton.onClick.AddListener(OnOpenVirtualItemTestPopupButtonClick);
         }
 
-        public void Init(InventoryTestPopUp parent, RGNVirtualItem virtualItem, bool isUserHave, bool isItemEquipped)
+        public void Init(VirtualItem virtualItem)
         {
-            inventoryTestPopUp = parent;
             item = virtualItem;
             itemId = virtualItem.id;
-            doesUserOwnTheItem = isUserHave;
             nameText.text = virtualItem.name;
         }
 
@@ -43,8 +40,8 @@ namespace ReadyGamesNetwork.Sample.UI
             //{
             //    UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            //    InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-            //    RGNEquipItemResult equipItemResult = await inventoryModule.EquipItem(itemId);
+            //    InventoryModule inventoryModule = CoreBuilder.I.GetModule<InventoryModule>();
+            //    EquipItemResult equipItemResult = await inventoryModule.EquipItem(itemId);
 
             //    PopupMessage popupMessage = new PopupMessage()
             //    {
@@ -66,7 +63,7 @@ namespace ReadyGamesNetwork.Sample.UI
         {
             UIRoot.singleton.ShowPopup<VirtualItemTestPopUp>();
             var itemTestPopup = UIRoot.singleton.GetPopup<VirtualItemTestPopUp>();
-            itemTestPopup.Init(item, doesUserOwnTheItem);
+            itemTestPopup.Init(item, true);
         }
     }
 }

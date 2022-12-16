@@ -3,7 +3,7 @@ using RGN.Modules.GameProgress;
 using RGN.Modules.GuestSignIn;
 using System;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class LoadingPanel : AbstractPanel
     {
@@ -39,7 +39,7 @@ namespace ReadyGamesNetwork.Sample.UI
                     break;
                 case EnumLoginState.Success:
                     {
-                        RGNGameUserFullProfileData userProfileData = await ProfileController.LoadAndCacheAsync();
+                        GameUserFullProfileData userProfileData = await ProfileController.LoadAndCacheAsync();
                         if (userProfileData == null)
                         {
                             Bootstrap.I.DisplayMessage("Error: No Account found");

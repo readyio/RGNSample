@@ -5,24 +5,23 @@ using RGN.Modules.EmailSignIn;
 using RGN.Modules.FacebookSignIn;
 using RGN.Modules.GuestSignIn;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class UserSettingsPopup : AbstractPopup
     {
         [Header("Authentication")] 
-        [SerializeField] private GameObject googleButton;
-        [SerializeField] private GameObject facebookButton;
-        [SerializeField] private GameObject appleButton;
-        [SerializeField] private GameObject emailButton;
+        [SerializeField] private Button googleButton;
+        [SerializeField] private Button facebookButton;
+        [SerializeField] private Button appleButton;
+        [SerializeField] private Button emailButton;
+        [SerializeField] private Button closeButton;
 
         [SerializeField] private EmailSignUpPanel emailSignUpPanel;
         [SerializeField] private EmailSignInPanel emailSignInPanel;
         
-        [SerializeField] private GameObject signOutButton;
-        
-        [SerializeField] private GameObject becameCreatorButton;
-        [SerializeField] private GameObject creatorDashboardButton;
+        [SerializeField] private Button signOutButton;
 
         private EnumAuthProvider tryConnectProvider;
         private string email = string.Empty;
@@ -42,19 +41,23 @@ namespace ReadyGamesNetwork.Sample.UI
             password = string.Empty;
 
             SetAuthenticationButtons();
-            becameCreatorButton.SetActive(!ProfileController.CurrentUserData.isCreator);
-            creatorDashboardButton.SetActive(ProfileController.CurrentUserData.isCreator);
+            googleButton.onClick.AddListener(OnGoogleLogin);
+            facebookButton.onClick.AddListener(OnFBLogin);
+            appleButton.onClick.AddListener(OnAppleLogin);
+            emailButton.onClick.AddListener(OnOpenEmailLoginPanel);
+            signOutButton.onClick.AddListener(OnEmailLogout);
+            closeButton.onClick.AddListener(OnCloseClick);
             base.Show(isInstant, onComplete);
         }
         
         private void SetAuthenticationButtons()
         {
             SetAllAuthenticationButton(false);
-            signOutButton.SetActive(false);
+            signOutButton.gameObject.SetActive(false);
 
             if (RGNCoreBuilder.I.authorizedProviders != 0)
             {
-                signOutButton.SetActive(true);
+                signOutButton.gameObject.SetActive(true);
             }
             else
             {
@@ -64,16 +67,22 @@ namespace ReadyGamesNetwork.Sample.UI
         
         private void SetAllAuthenticationButton(bool value)
         {
-            googleButton.SetActive(value);
-            facebookButton.SetActive(value);
-            emailButton.SetActive(value);
+            googleButton.gameObject.SetActive(value);
+            facebookButton.gameObject.SetActive(value);
+            emailButton.gameObject.SetActive(value);
 #if UNITY_IPHONE
-            appleButton.SetActive(value);
+            appleButton.gameObject.SetActive(value);
 #endif
         }
 
         public void OnCloseClick()
         {
+            googleButton.onClick.RemoveListener(OnGoogleLogin);
+            facebookButton.onClick.RemoveListener(OnFBLogin);
+            appleButton.onClick.RemoveListener(OnAppleLogin);
+            emailButton.onClick.RemoveListener(OnOpenEmailLoginPanel);
+            signOutButton.onClick.RemoveListener(OnEmailLogout);
+            closeButton.onClick.RemoveListener(OnCloseClick);
             Hide(true, null);
         }
 
@@ -260,16 +269,6 @@ namespace ReadyGamesNetwork.Sample.UI
                     });
                 }
             }
-        }
-
-        public void OnBecameACreator()
-        {
-            OnCloseClick();
-        }
-
-        public void OnCreatorDashboard()
-        {
-            OnCloseClick();
         }
 
         private void SetActiveSpinner(bool value)

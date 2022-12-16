@@ -1,14 +1,17 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class GenericPopup : AbstractPopup
     {
-        [SerializeField] private Text TitleLabel = default;
+        [SerializeField] private TMP_Text TitleLabel = default;
         [SerializeField] private TMPro.TextMeshProUGUI MessageLabel = default;
-        [SerializeField] private Text ButtonLabel = default;
+        [SerializeField] private TMP_Text ButtonLabel = default;
+        [SerializeField] private Button okayButton;
+        [SerializeField] private Button cancelButton;
 
         private Action Callback;
 
@@ -19,11 +22,16 @@ namespace ReadyGamesNetwork.Sample.UI
             ButtonLabel.text = _msg.ButtonText;
             Callback = _msg.Callback;
 
+            okayButton.onClick.AddListener(CloseWindow);
+            cancelButton.onClick.AddListener(CloseWindow);
             UIRoot.singleton.ShowPopup<GenericPopup>();
         }
 
         public void CloseWindow()
         {
+            
+            okayButton.onClick.RemoveListener(CloseWindow);
+            cancelButton.onClick.RemoveListener(CloseWindow);
             Hide(true, Callback);
         }
     }

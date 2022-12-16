@@ -1,7 +1,4 @@
-﻿using ReadyGamesNetwork.Sample.UI;
-using RGN;
-using RGN.Impl.Firebase;
-using RGN.Impl.Firebase.Core;
+﻿using RGN.Impl.Firebase.Core;
 using RGN.Modules;
 using RGN.Modules.Achievement;
 using RGN.Modules.Creator;
@@ -12,20 +9,20 @@ using RGN.Modules.GameProgress;
 using RGN.Modules.GuestSignIn;
 using RGN.Modules.Inventory;
 using RGN.Modules.Matchmaking;
-using RGN.Modules.UserProfileModule;
+using RGN.Modules.UserProfile;
 using RGN.Modules.VirtualItems;
 using RGN.Modules.Wallets;
+using RGN.Sample.UI;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample
+namespace RGN.Sample
 {
     public class Bootstrap : MonoBehaviour
     {
-
         public static Bootstrap I;
         [SerializeField] private ApplicationStore applicationStore;
-        [SerializeField] private Text status;
+        [SerializeField] private TMP_Text status;
 
         public ApplicationStore ApplicationStore => applicationStore;
         public bool FirebaseBuilded { get; private set; }
@@ -38,7 +35,7 @@ namespace ReadyGamesNetwork.Sample
             RGNCoreBuilder.AddModule(new FacebookSignInModule());
             RGNCoreBuilder.AddModule(new EmailSignInModule());
             RGNCoreBuilder.AddModule(new GuestSignInModule());
-            RGNCoreBuilder.AddModule(new UserProfileModule<RGNGameUserFullProfileData>(applicationStore.RGNStorageURL));
+            RGNCoreBuilder.AddModule(new UserProfileModule<GameUserFullProfileData>(applicationStore.RGNStorageURL));
             RGNCoreBuilder.AddModule(new CurrencyModule());
             RGNCoreBuilder.AddModule(new GameModule());
             RGNCoreBuilder.AddModule(new InventoryModule());
@@ -63,13 +60,12 @@ namespace ReadyGamesNetwork.Sample
             };
 
             await RGNCoreBuilder.Build(
-                new Dependencies(
+                new Impl.Firebase.Dependencies(
                     appOptions,
                     applicationStore.RGNStorageURL),
                 appOptions,
                applicationStore.RGNStorageURL,
                applicationStore.RGNAppId);
-
             if (applicationStore.usingEmulator)
             {
                 RGNCore rgnCore = (RGNCore)RGNCoreBuilder.I;

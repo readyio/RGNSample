@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using RGN;
-using RGN.Model;
-using RGN.Model.Response;
-using RGN.Modules;
 using RGN.Modules.Currency;
-using RGN.Modules.Inventory;
 using RGN.Modules.VirtualItems;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class StoreTestPopUp : AbstractPopup
     {
+        [SerializeField] private Button closeButton;
         [SerializeField] private GameObject itemTemplate;
         [SerializeField] private Transform itemContent;
         [SerializeField] private Button earnAdsRewardButton;
@@ -23,6 +18,7 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public override void Show(bool isInstant, Action onComplete)
         {
+            closeButton.onClick.AddListener(OnCloseClick);
             base.Show(isInstant, onComplete);
 
             earnAdsRewardButton.onClick.RemoveAllListeners();
@@ -46,9 +42,8 @@ namespace ReadyGamesNetwork.Sample.UI
             VirtualItemModule virtualItemModule = RGNCoreBuilder.I.GetModule<VirtualItemModule>();
 
             var virtualItems = await virtualItemModule.GetVirtualItems();
-            Debug.Log(virtualItems.allItems.Count);
 
-            foreach (RGNVirtualItem virtualItem in virtualItems.allItems)
+            foreach (VirtualItem virtualItem in virtualItems)
             {
                 GameObject itemGO = Instantiate(itemTemplate, itemContent);
                 itemGO.SetActive(true);
@@ -71,7 +66,7 @@ namespace ReadyGamesNetwork.Sample.UI
             List<string> itemList = new List<string>();
             itemList.Add(itemId);
             BuyVirtualItemResponseData buyItemData = await virtualItemModule.BuyVirtualItems(itemList);
-            
+
             PopupMessage popupMessage = new PopupMessage()
             {
                 Message = $"success: {buyItemData.isSuccess} {buyItemData.message}"
@@ -79,9 +74,9 @@ namespace ReadyGamesNetwork.Sample.UI
             GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
             genericPopup.ShowMessage(popupMessage);
             UIRoot.singleton.ShowPopup<GenericPopup>();
-            
+
             UIRoot.singleton.HidePopup<SpinnerPopup>();
-            
+
             Init();
         }
 
@@ -90,9 +85,9 @@ namespace ReadyGamesNetwork.Sample.UI
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
-            EarnAdsRewardRequestData earnAdsRewardResult = await inAppPurchaseModule.EarnAdsReward(new List<RGNCurrency>()
+            EarnAdsRewardRequestData earnAdsRewardResult = await inAppPurchaseModule.EarnAdsReward(new List<Currency>()
             {
-                new RGNCurrency()
+                new Currency()
                 {
                     name = "rgntestCoin",
                     quantity = 25
@@ -112,6 +107,7 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public void OnCloseClick()
         {
+            closeButton.onClick.RemoveListener(OnCloseClick);
             Hide(true, null);
         }
     }

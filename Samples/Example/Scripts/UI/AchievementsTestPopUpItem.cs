@@ -1,13 +1,14 @@
 using RGN.Modules.Achievement;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class AchievementsTestPopUpItem : MonoBehaviour
     {
         [SerializeField] private Image baseImage;
-        [SerializeField] private Text idText;
+        [SerializeField] private TMP_Text idText;
         [SerializeField] private Button triggerButton;
 
         private string achievementId;

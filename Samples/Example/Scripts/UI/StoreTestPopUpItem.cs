@@ -1,12 +1,13 @@
 ﻿using RGN.Modules.VirtualItems;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class StoreTestPopUpItem : MonoBehaviour
     {
-        [SerializeField] private Text nameText;
+        [SerializeField] private TMP_Text nameText;
         [SerializeField] private GameObject nftTag;
         [SerializeField] private Button buyButton;
 
@@ -22,10 +23,10 @@ namespace ReadyGamesNetwork.Sample.UI
             buyButton.onClick.AddListener(HandleBuyButtonClick);
         }
 
-        public void Init(RGNVirtualItem virtualItem)
+        public void Init(VirtualItem virtualItem)
         {
             itemId = virtualItem.id;
-            nftTag.SetActive(/*FIXME: virtualItem.isNFT*/false);
+            nftTag.SetActive(true /* TODO: virtualItem.isNFT*/);
             nameText.text = virtualItem.name;
         }
 

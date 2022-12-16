@@ -1,20 +1,23 @@
-using RGN;
 using RGN.Modules.Achievement;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class AchievementsTestPopUp : AbstractPopup
     {
         [SerializeField] private GameObject itemTemplate;
         [SerializeField] private Transform itemContent;
+        [SerializeField] private Button closeButton;
 
         private List<AchievementsTestPopUpItem> items = new List<AchievementsTestPopUpItem>();
 
         public override void Show(bool isInstant, Action onComplete)
         {
+            
+            closeButton.onClick.AddListener(OnCloseClick);
             base.Show(isInstant, onComplete);
 
             Init();
@@ -72,6 +75,7 @@ namespace ReadyGamesNetwork.Sample.UI
 
         public void OnCloseClick()
         {
+            closeButton.onClick.RemoveListener(OnCloseClick);
             Hide(true, null);
         }
     }

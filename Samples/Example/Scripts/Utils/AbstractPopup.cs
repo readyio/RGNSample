@@ -1,5 +1,5 @@
 ﻿
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public abstract class AbstractPopup : AbstractPanel
     {

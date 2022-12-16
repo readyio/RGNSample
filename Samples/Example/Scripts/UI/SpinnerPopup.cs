@@ -1,4 +1,4 @@
-﻿namespace ReadyGamesNetwork.Sample.UI
+﻿namespace RGN.Sample.UI
 {
     public class SpinnerPopup : AbstractPopup
     {

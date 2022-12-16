@@ -1,27 +1,33 @@
-using System;
-using RGN;
-using RGN.Model;
-using RGN.Modules;
 using RGN.Modules.GameProgress;
-using RGN.Modules.UserProfileModule;
+using RGN.Modules.UserProfile;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyGamesNetwork.Sample.UI
+namespace RGN.Sample.UI
 {
     public class EditProfilePopup : AbstractPopup
     {
         [SerializeField] private RawImage playerAvatar;
-        [SerializeField] private InputField playerNameInput;
-        [SerializeField] private Button continueButton;
+        [SerializeField] private TMP_InputField playerNameInput;
+        [SerializeField] private Button saveButton;
+        [SerializeField] private Button closeButton;
+        [SerializeField] private Button playerAvatarButton;
 
         public override void Show(bool isInstant, Action onComplete)
         {
+            saveButton.onClick.AddListener(OnSaveClick);
+            closeButton.onClick.AddListener(OnCloseClick);
+            playerAvatarButton.onClick.AddListener(OnEditAvatarClick);
             playerNameInput.text = ProfileController.CurrentUserData.displayName;
             base.Show(isInstant, onComplete);
         }
         public override void Hide(bool isInstant, Action onComplete)
         {
+            saveButton.onClick.RemoveListener(OnSaveClick);
+            closeButton.onClick.RemoveListener(OnCloseClick);
+            playerAvatarButton.onClick.RemoveListener(OnEditAvatarClick);
             base.Hide(isInstant, onComplete);
         }
 
@@ -60,10 +66,10 @@ namespace ReadyGamesNetwork.Sample.UI
         public void OnPlayerNameInputValueChange(string val)
         {
             //Check if username is empty or not.
-            continueButton.interactable = !string.IsNullOrEmpty(val);
+            saveButton.interactable = !string.IsNullOrEmpty(val);
         }
 
-        public void OnContinueClick()
+        public void OnSaveClick()
         {
 
             if (!ProfileController.CurrentUserData.displayName.Equals(playerNameInput.text))
@@ -80,7 +86,7 @@ namespace ReadyGamesNetwork.Sample.UI
 
         private async void UpdateProfileAsync(string playerName)
         {
-            await RGNCoreBuilder.I.GetModule<UserProfileModule<RGNGameUserFullProfileData>>().UpdateProfileAsync(playerName);
+            await RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().UpdateProfileAsync(playerName);
             ProfileController.CurrentUserData.displayName = playerName;
 
             SetActiveSpinner(false);
