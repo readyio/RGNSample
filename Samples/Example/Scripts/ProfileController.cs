@@ -13,7 +13,7 @@ namespace RGN.Sample
 
         public static async Task<GameUserFullProfileData> LoadAndCacheAsync()
         {
-            CurrentUserData = await RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().GetFullUserProfile(RGNCoreBuilder.I.masterAppUser.UserId);
+            CurrentUserData = await RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().GetFullUserProfile(RGNCoreBuilder.I.MasterAppUser.UserId);
 
             //if (CurrentUserData != null && !string.IsNullOrEmpty(CurrentUserData.avatarPath))
             //{

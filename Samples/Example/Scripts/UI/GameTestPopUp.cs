@@ -15,7 +15,7 @@ namespace RGN.Sample.UI
         [SerializeField] private Button updateLevelProgressButton;
         [SerializeField] private Button getLevelProgressButton;
 
-        public override async void Show(bool isInstant, Action onComplete)
+        public override void Show(bool isInstant, Action onComplete)
         {
             cancelButton.onClick.AddListener(OnCloseClick);
             onGameCompleteButton.onClick.AddListener(OnGameCompleteButtonClick);

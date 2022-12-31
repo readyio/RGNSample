@@ -1,7 +1,6 @@
-﻿using RGN;
+using System;
 using RGN.Modules.GameProgress;
 using RGN.Modules.GuestSignIn;
-using System;
 
 namespace RGN.Sample.UI
 {
@@ -9,15 +8,15 @@ namespace RGN.Sample.UI
     {
         public override void Show(bool isInstant, Action onComplete)
         {
-            if (!Bootstrap.I.FirebaseBuilded)
-            {
-                Bootstrap.I.StartFirebaseBuilding();
-                RGNCoreBuilder.I.OnAuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
-            }
-            else
+            if (Bootstrap.I.FirebaseBuilded)
             {
                 RGNCoreBuilder.I.OnAuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
                 RGNCoreBuilder.I.GetModule<GuestSignInModule>().SignInAsGuest();
+            }
+            else
+            {
+                Bootstrap.I.StartFirebaseBuilding();
+                RGNCoreBuilder.I.OnAuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
             }
 
             base.Show(isInstant, onComplete);
