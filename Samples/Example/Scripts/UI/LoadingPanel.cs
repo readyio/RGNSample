@@ -6,7 +6,7 @@ namespace RGN.Sample.UI
 {
     public class LoadingPanel : AbstractPanel
     {
-        public override void Show(bool isInstant, Action onComplete)
+        public override async void Show(bool isInstant, Action onComplete)
         {
             if (Bootstrap.I.FirebaseBuilded)
             {
@@ -15,7 +15,7 @@ namespace RGN.Sample.UI
             }
             else
             {
-                Bootstrap.I.StartFirebaseBuilding();
+                await Bootstrap.I.BuildAsync();
                 RGNCoreBuilder.I.OnAuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
             }
 

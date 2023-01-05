@@ -36,7 +36,7 @@ namespace RGN.Sample.UI
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             AchievementsModule module = RGNCoreBuilder.I.GetModule<AchievementsModule>();
-            GetAchievementsResponseData responseData = await module.Get();
+            GetAchievementsResponseData responseData = await module.GetAsync();
 
             foreach (RGNAchievementDataV2 achievement in responseData.achievements)
             {
@@ -58,7 +58,7 @@ namespace RGN.Sample.UI
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             AchievementsModule module = RGNCoreBuilder.I.GetModule<AchievementsModule>();
-            TriggerAchievementResponseData response = await module.Trigger(achievementId);
+            TriggerAchievementResponseData response = await module.TriggerAsync(achievementId);
 
             PopupMessage popupMessage = new PopupMessage()
             {

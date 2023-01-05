@@ -1,4 +1,4 @@
-﻿using RGN.Modules.Inventory;
+using RGN.Modules.Inventory;
 using RGN.Modules.VirtualItems;
 using System;
 using System.Collections.Generic;
@@ -36,10 +36,10 @@ namespace RGN.Sample.UI
 
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            List<string> virtualItemsIds = await GetVirtualItemsInventoryIds();
+            List<string> virtualItemsIds = await GetVirtualItemsInventoryIdsAsync();
             VirtualItemModule virtualItemModule = RGNCoreBuilder.I.GetModule<VirtualItemModule>();
 
-            var virtualItems = await virtualItemModule.GetVirtualItemsByIds(virtualItemsIds);
+            var virtualItems = await virtualItemModule.GetVirtualItemsByIdsAsync(virtualItemsIds);
 
             foreach (VirtualItem virtualItem in virtualItems)
             {
@@ -55,12 +55,12 @@ namespace RGN.Sample.UI
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
-        private async Task<List<string>> GetVirtualItemsInventoryIds() {
+        private async Task<List<string>> GetVirtualItemsInventoryIdsAsync() {
             List<string> virtualItemsIds = new List<string>();
 
             InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
 
-            var userVirtualItems = await inventoryModule.GetByAppId(RGNCoreBuilder.I.AppIDForRequests);
+            var userVirtualItems = await inventoryModule.GetByAppIdAsync(RGNCoreBuilder.I.AppIDForRequests);
 
             foreach (var inventoryData in userVirtualItems.items)
             {

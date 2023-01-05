@@ -35,15 +35,15 @@ namespace RGN.Sample.UI
 
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            await InitPurchases();
+            await InitPurchasesAsync();
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
-        private async Task InitPurchases() {
+        private async Task InitPurchasesAsync() {
             CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
 
-            CurrencyProductsData productsData = await inAppPurchaseModule.GetInAppPurchaseCurrencyData();
+            CurrencyProductsData productsData = await inAppPurchaseModule.GetInAppPurchaseCurrencyDataAsync();
 
             foreach (CurrencyProduct product in productsData.products) {
                 //TODO: you have to register your products in Unity IAP ConfigurationBuilder,
@@ -54,7 +54,7 @@ namespace RGN.Sample.UI
 
                 InAppPurchasesTestPopUpItem item = itemGO.GetComponent<InAppPurchasesTestPopUpItem>();
                 item.Init(product);
-                item.OnBuyButtonClick += OnBuyProductButtonClick;
+                item.OnBuyButtonClick += OnBuyProductButtonClickAsync;
 
                 items.Add(item);
             }
@@ -62,16 +62,16 @@ namespace RGN.Sample.UI
 
         private void OnBuyRGNCoinButtonClick()
         {
-            OnBuyRGNCoin(testId);
+            OnBuyRGNCoinAsync(testId);
         }
-        private async void OnBuyProductButtonClick(string productId) {
+        private async void OnBuyProductButtonClickAsync(string productId) {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             //TODO: you need to Call IAP purchase method from Unity IAP Package,
             // use OnSuccefullPurchase event of IAP Package for calling of our PurchaseProduct method,
             // we don't do purchase validation on your side
             CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
-            UserCurrencyData currencyData = await inAppPurchaseModule.PurchaseCurrencyProduct(productId);
+            UserCurrencyData currencyData = await inAppPurchaseModule.PurchaseCurrencyProductAsync(productId);
 
             string result = "";
 
@@ -89,7 +89,7 @@ namespace RGN.Sample.UI
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
-        public async void OnBuyRGNCoin(string iapUUID) {
+        public async void OnBuyRGNCoinAsync(string iapUUID) {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             //TODO: you need to Call IAP purchase method from Unity IAP Package,
@@ -98,7 +98,7 @@ namespace RGN.Sample.UI
             // You will get isoCurrenyCode and localizedPrice from Unity IAP product's metadata
             // More details : https://docs.unity3d.com/Manual/UnityIAPBrowsingMetadata.html
             CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
-            PurchaseRGNCoinResponseData purchaseRGNCoinResult = await inAppPurchaseModule.PurchaseRGNCoin(iapUUID);
+            PurchaseRGNCoinResponseData purchaseRGNCoinResult = await inAppPurchaseModule.PurchaseRGNCoinAsync(iapUUID);
 
             string result = "";
             if (purchaseRGNCoinResult.success) {

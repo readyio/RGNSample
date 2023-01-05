@@ -1,4 +1,4 @@
-﻿using RGN.Modules.GameProgress;
+using RGN.Modules.GameProgress;
 using RGN.Modules.UserProfile;
 using System;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ namespace RGN.Sample
 
         public static async Task<GameUserFullProfileData> LoadAndCacheAsync()
         {
-            CurrentUserData = await RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().GetFullUserProfile(RGNCoreBuilder.I.MasterAppUser.UserId);
+            CurrentUserData = await RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().GetFullUserProfileAsync(RGNCoreBuilder.I.MasterAppUser.UserId);
 
             //if (CurrentUserData != null && !string.IsNullOrEmpty(CurrentUserData.avatarPath))
             //{

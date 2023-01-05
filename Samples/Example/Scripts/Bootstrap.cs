@@ -14,6 +14,7 @@ using RGN.Modules.VirtualItems;
 using RGN.Modules.Wallets;
 using RGN.Sample.UI;
 using RGN.Utility;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -53,14 +54,14 @@ namespace RGN.Sample
             RGNCoreBuilder.Dispose();
         }
 
-        public async void StartFirebaseBuilding()
+        public Task BuildAsync()
         {
             if (FirebaseBuilded)
             {
-                return;
+                return Task.CompletedTask;
             }
             FirebaseBuilded = true;
-            await RGNCoreBuilder.Build(new Impl.Firebase.Dependencies());
+            return RGNCoreBuilder.BuildAsync(new Impl.Firebase.Dependencies());
         }
 
         public void DisplayMessage(string message)

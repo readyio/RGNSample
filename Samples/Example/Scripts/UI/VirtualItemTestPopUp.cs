@@ -1,4 +1,4 @@
-﻿using RGN.Modules.Inventory;
+using RGN.Modules.Inventory;
 using RGN.Modules.VirtualItems;
 using System;
 using ThirdPartyDeveloper.Aeria.DemoWeaponUpgrades;
@@ -125,7 +125,7 @@ namespace RGN.Sample.UI
                 UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
                 InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-                var result = await inventoryModule.Upgrade(item.id, upgradeLevel);
+                var result = await inventoryModule.UpgradeAsync(item.id, upgradeLevel);
 
                 string message = "No upgrades";
                 if (result.itemUpgrades.Count > 0)

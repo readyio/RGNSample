@@ -75,7 +75,7 @@ namespace RGN.Sample.UI
 
             currentMatchGameType = "practice";
 
-            StartMatchResponseData response = await matchmakingModule.StartMatch(currentMatchGameType);
+            StartMatchResponseData response = await matchmakingModule.StartMatchAsync(currentMatchGameType);
             if (response.status == 200)
             {
                 currentMatchId = response.matchId;
@@ -113,7 +113,7 @@ namespace RGN.Sample.UI
 
             historyItems = new List<MatchmakingTestPopUpHistoryItem>();
 
-            GetMatchmakingHistoryResponseData response = await matchmakingModule.GetHistory();
+            GetMatchmakingHistoryResponseData response = await matchmakingModule.GetHistoryAsync();
             if (response.status == 200)
             {
                 List<MatchmakingRecord> historyRecords = response.history;
@@ -141,7 +141,7 @@ namespace RGN.Sample.UI
             float.TryParse(scoreInput.text, out var score);
             scoreInput.text = score.ToString(CultureInfo.InvariantCulture);
 
-            SubmitMatchScoreResponseData response = await matchmakingModule.SubmitMatchScore(currentMatchGameType, currentMatchId, score);
+            SubmitMatchScoreResponseData response = await matchmakingModule.SubmitMatchScoreAsync(currentMatchGameType, currentMatchId, score);
             if (response.status == 200)
             {
                 currentMatchGameType = string.Empty;

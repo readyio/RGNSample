@@ -1,4 +1,4 @@
-﻿using Firebase.Extensions;
+using Firebase.Extensions;
 using RGN;
 using RGN.Modules.Currency;
 using System;
@@ -52,7 +52,7 @@ namespace RGN.Sample
 
         public async void PurchaseProduct(string productId)
         {
-            await RGNCoreBuilder.I.GetModule<CurrencyModule>().PurchaseCurrencyProduct(productId).ContinueWithOnMainThread(task =>
+            await RGNCoreBuilder.I.GetModule<CurrencyModule>().PurchaseCurrencyProductAsync(productId).ContinueWithOnMainThread(task =>
             {
                 currencyData = task.Result;
                 OnCurrencyDataUpdated?.Invoke(currencyData);

@@ -140,7 +140,7 @@ namespace RGN.Sample.UI
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
             
             var storeModule = RGNCoreBuilder.I.GetModule<StoreModule>();
-            BuyVirtualItemsResponse buyItemsResponse = await storeModule.BuyVirtualItems(
+            BuyVirtualItemsResponse buyItemsResponse = await storeModule.BuyVirtualItemsAsync(
                 currentOrderItems,
                 currentOrderCurrencies, 
                 currentOrderOfferId

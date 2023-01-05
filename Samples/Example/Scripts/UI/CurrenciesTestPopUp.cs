@@ -36,7 +36,7 @@ namespace RGN.Sample.UI
             UserProfileModule<GameUserFullProfileData> userProfileModule =
                 RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>();
 
-            UserCurrencyData userCurrencyData = await userProfileModule.GetUserCurrencies();
+            UserCurrencyData userCurrencyData = await userProfileModule.GetUserCurrenciesAsync();
             foreach (Currency currency in userCurrencyData.currencies)
             {
                 GameObject itemGO = Instantiate(itemTemplate, itemContent);

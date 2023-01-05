@@ -31,7 +31,7 @@ namespace RGN.Sample.UI
 
             GameModule gameModule = RGNCoreBuilder.I.GetModule<GameModule>();
 
-            OnGameCompleteResult onGameCompleteResult = await gameModule.OnGameComplete(new List<Currency>()
+            OnGameCompleteResult onGameCompleteResult = await gameModule.OnGameCompleteAsync(new List<Currency>()
             {
                 new Currency()
                 {
@@ -58,7 +58,7 @@ namespace RGN.Sample.UI
 
             GameModule gameModule = RGNCoreBuilder.I.GetModule<GameModule>();
 
-            GameProgress gameProgress = await gameModule.GetGameProgress();
+            GameProgress gameProgress = await gameModule.GetGameProgressAsync();
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 
@@ -91,7 +91,7 @@ namespace RGN.Sample.UI
                 }
             };
 
-            LevelProgressResult<LevelData> levelProgressResult = await gameModule.UpdateLevelProgress(levelData, new List<Currency>()
+            LevelProgressResult<LevelData> levelProgressResult = await gameModule.UpdateLevelProgressAsync(levelData, new List<Currency>()
             {
                 new Currency()
                 {
@@ -116,7 +116,7 @@ namespace RGN.Sample.UI
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             GameModule gameModule = RGNCoreBuilder.I.GetModule<GameModule>();
-            LevelProgressResult<LevelData> levelProgressResult = await gameModule.GetLevelProgress<LevelData>();
+            LevelProgressResult<LevelData> levelProgressResult = await gameModule.GetLevelProgressAsync<LevelData>();
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 
