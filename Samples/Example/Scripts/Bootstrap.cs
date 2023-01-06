@@ -1,11 +1,8 @@
-using RGN.Modules;
 using RGN.Modules.Achievement;
 using RGN.Modules.Creator;
 using RGN.Modules.Currency;
-using RGN.Modules.EmailSignIn;
-using RGN.Modules.FacebookSignIn;
 using RGN.Modules.GameProgress;
-using RGN.Modules.GuestSignIn;
+using RGN.Modules.SignIn;
 using RGN.Modules.Inventory;
 using RGN.Modules.Matchmaking;
 using RGN.Modules.Store;
@@ -14,7 +11,6 @@ using RGN.Modules.VirtualItems;
 using RGN.Modules.Wallets;
 using RGN.Sample.UI;
 using RGN.Utility;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -54,14 +50,14 @@ namespace RGN.Sample
             RGNCoreBuilder.Dispose();
         }
 
-        public Task BuildAsync()
+        public async void BuildAsync()
         {
             if (FirebaseBuilded)
             {
-                return Task.CompletedTask;
+                return;
             }
             FirebaseBuilded = true;
-            return RGNCoreBuilder.BuildAsync(new Impl.Firebase.Dependencies());
+            await RGNCoreBuilder.BuildAsync(new Impl.Firebase.Dependencies());
         }
 
         public void DisplayMessage(string message)

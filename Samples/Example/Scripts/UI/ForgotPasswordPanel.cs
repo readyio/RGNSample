@@ -1,4 +1,4 @@
-using RGN.Modules.EmailSignIn;
+using RGN.Modules.SignIn;
 using System;
 using TMPro;
 using UnityEngine;

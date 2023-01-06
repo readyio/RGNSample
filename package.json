@@ -42,6 +42,7 @@
     "io.getready.rgn.gameprogress": "0.0.14",
     "io.getready.rgn.inventory": "0.0.14",
     "io.getready.rgn.matchmaking": "0.0.14",
+    "io.getready.rgn.messaging": "0.0.14",
     "io.getready.rgn.signin.apple": "0.0.14",
     "io.getready.rgn.signin.email": "0.0.14",
     "io.getready.rgn.signin.facebook": "0.0.14",

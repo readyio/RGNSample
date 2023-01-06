@@ -1,6 +1,6 @@
 using System;
 using RGN.Modules.GameProgress;
-using RGN.Modules.GuestSignIn;
+using RGN.Modules.SignIn;
 
 namespace RGN.Sample.UI
 {
@@ -15,7 +15,7 @@ namespace RGN.Sample.UI
             }
             else
             {
-                await Bootstrap.I.BuildAsync();
+                Bootstrap.I.BuildAsync();
                 RGNCoreBuilder.I.OnAuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
             }
 

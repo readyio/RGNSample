@@ -1,9 +1,5 @@
-﻿using System;
-using RGN;
-using RGN.Modules;
-using RGN.Modules.EmailSignIn;
-using RGN.Modules.FacebookSignIn;
-using RGN.Modules.GuestSignIn;
+using System;
+using RGN.Modules.SignIn;
 using UnityEngine;
 using UnityEngine.UI;
 
