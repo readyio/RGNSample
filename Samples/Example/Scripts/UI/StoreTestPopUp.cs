@@ -140,19 +140,20 @@ namespace RGN.Sample.UI
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
             
             var storeModule = RGNCoreBuilder.I.GetModule<StoreModule>();
-            BuyVirtualItemsResponse buyItemsResponse = await storeModule.BuyVirtualItemsAsync(
+            PurchaseResult purchaseResult = await storeModule.BuyVirtualItemsAsync(
                 currentOrderItems,
                 currentOrderCurrencies, 
                 currentOrderOfferId
             );
             
             StringBuilder purchasedItems = new StringBuilder();
+            purchasedItems.Append($"OfferId: {purchaseResult.offerId}");
             purchasedItems.Append("Purchased items: ");
             purchasedItems.Append(Environment.NewLine);
-            for (var i = 0; i < buyItemsResponse.purchasedItems.Length; i++)
+            for (var i = 0; i < purchaseResult.itemIds.Length; i++)
             {
-                purchasedItems.Append(buyItemsResponse.purchasedItems[i]);
-                if (i < buyItemsResponse.purchasedItems.Length - 1)
+                purchasedItems.Append(purchaseResult.itemIds[i]);
+                if (i < purchaseResult.itemIds.Length - 1)
                 {
                     purchasedItems.Append(",");
                 }

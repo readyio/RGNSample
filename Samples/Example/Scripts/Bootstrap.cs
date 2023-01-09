@@ -13,6 +13,7 @@ using RGN.Sample.UI;
 using RGN.Utility;
 using TMPro;
 using UnityEngine;
+using RGN.Modules.Messaging;
 
 namespace RGN.Sample
 {
@@ -42,6 +43,7 @@ namespace RGN.Sample
             RGNCoreBuilder.AddModule(new AchievementsModule());
             RGNCoreBuilder.AddModule(new WalletsModule());
             RGNCoreBuilder.AddModule(new MatchmakingModule());
+            RGNCoreBuilder.AddModule(new MessagingModule());
             UIRoot.singleton.ShowPanel<LoadingPanel>();
         }
         private void OnApplicationQuit()
