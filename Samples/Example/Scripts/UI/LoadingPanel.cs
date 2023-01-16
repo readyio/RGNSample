@@ -10,13 +10,13 @@ namespace RGN.Sample.UI
         {
             if (Bootstrap.I.FirebaseBuilded)
             {
-                RGNCoreBuilder.I.OnAuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
+                RGNCoreBuilder.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
                 RGNCoreBuilder.I.GetModule<GuestSignInModule>().SignInAsGuest();
             }
             else
             {
                 Bootstrap.I.BuildAsync();
-                RGNCoreBuilder.I.OnAuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
+                RGNCoreBuilder.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
             }
 
             base.Show(isInstant, onComplete);
@@ -24,7 +24,7 @@ namespace RGN.Sample.UI
 
         public override void Hide(bool isInstant, Action onComplete)
         {
-            RGNCoreBuilder.I.OnAuthenticationChanged -= FirebaseManager_OnAuthenticationChanged;
+            RGNCoreBuilder.I.AuthenticationChanged -= FirebaseManager_OnAuthenticationChanged;
             base.Hide(isInstant, onComplete);
         }
 

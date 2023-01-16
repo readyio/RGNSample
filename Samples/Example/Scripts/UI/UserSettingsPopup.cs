@@ -93,14 +93,14 @@ namespace RGN.Sample.UI
         {
             tryConnectProvider = EnumAuthProvider.Facebook;
 
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
             RGNCoreBuilder.I.GetModule<FacebookSignInModule>().OnSignInFacebook(true);
             SetActiveSpinner(true);
         }
 
         public void OnFBLogout()
         {
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged_SignOut;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
             RGNCoreBuilder.I.GetModule<FacebookSignInModule>().SignOutFromFacebook();
             SetActiveSpinner(true);
         }
@@ -109,14 +109,14 @@ namespace RGN.Sample.UI
         {
             tryConnectProvider = EnumAuthProvider.Google;
 
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
             RGNCoreBuilder.I.GetModule<GoogleSignInModule>().OnSignInGoogle(true);
             SetActiveSpinner(true);
         }
 
         public void OnGoogleLogout()
         {
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged_SignOut;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
             RGNCoreBuilder.I.GetModule<GoogleSignInModule>().SignOutFromGoogle();
             SetActiveSpinner(true);
         }
@@ -125,14 +125,14 @@ namespace RGN.Sample.UI
         {
             tryConnectProvider = EnumAuthProvider.Apple;
 
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
             RGNCoreBuilder.I.GetModule<AppleSignInModule>().OnSignInWithApple(true);
             SetActiveSpinner(true);
         }
 
         public void OnAppleLogout()
         {
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged_SignOut;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
             RGNCoreBuilder.I.GetModule<AppleSignInModule>().SignOutFromApple();
             SetActiveSpinner(true);
         }
@@ -144,7 +144,7 @@ namespace RGN.Sample.UI
 
             tryConnectProvider = EnumAuthProvider.Email;
 
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
             RGNCoreBuilder.I.GetModule<EmailSignInModule>().OnSignUpWithEmail(email, password);
             SetActiveSpinner(true);
         }
@@ -156,28 +156,28 @@ namespace RGN.Sample.UI
 
             tryConnectProvider = EnumAuthProvider.Email;
 
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
             RGNCoreBuilder.I.GetModule<EmailSignInModule>().OnSignInWithEmail(email, password);
             SetActiveSpinner(true);
         }
 
         public void OnEmailLogout()
         {
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged_SignOut;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
             RGNCoreBuilder.I.GetModule<EmailSignInModule>().SignOutFromEmail();
             SetActiveSpinner(true);
         }
 
         public void OnGuestLogout()
         {
-            RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged_SignOut;
+            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
             RGNCoreBuilder.I.GetModule<GuestSignInModule>().SignOutGuest();
             SetActiveSpinner(true);
         }
 
         private void OnAuthenticationChanged_SignOut(EnumLoginState enumLoginState, EnumLoginError error)
         {
-            RGNCoreBuilder.I.OnAuthenticationChanged -= OnAuthenticationChanged_SignOut;
+            RGNCoreBuilder.I.AuthenticationChanged -= OnAuthenticationChanged_SignOut;
             UIRoot.singleton.HideAllPanels();
             UIRoot.singleton.HidePopup<UserSettingsPopup>();
             SetActiveSpinner(false);
@@ -188,7 +188,7 @@ namespace RGN.Sample.UI
         {
             if (enumLoginState == EnumLoginState.Error || enumLoginState == EnumLoginState.Success)
             {
-                RGNCoreBuilder.I.OnAuthenticationChanged -= OnAuthenticationChanged;
+                RGNCoreBuilder.I.AuthenticationChanged -= OnAuthenticationChanged;
 
                 if (enumLoginState == EnumLoginState.Success)
                 {
@@ -215,7 +215,7 @@ namespace RGN.Sample.UI
                             ButtonText = "Yes",
                             Callback = delegate
                             {
-                                RGNCoreBuilder.I.OnAuthenticationChanged += OnAuthenticationChanged;
+                                RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
                                 SetActiveSpinner(true);
 
                                 switch (tryConnectProvider)
