@@ -14,6 +14,7 @@ using RGN.Utility;
 using TMPro;
 using UnityEngine;
 using RGN.Modules.Messaging;
+using System.Threading.Tasks;
 
 namespace RGN.Sample
 {
@@ -52,14 +53,14 @@ namespace RGN.Sample
             RGNCoreBuilder.Dispose();
         }
 
-        public async void BuildAsync()
+        public Task BuildAsync()
         {
             if (FirebaseBuilded)
             {
-                return;
+                return Task.CompletedTask;
             }
             FirebaseBuilded = true;
-            await RGNCoreBuilder.BuildAsync(new Impl.Firebase.Dependencies());
+            return RGNCoreBuilder.BuildAsync(new Impl.Firebase.Dependencies());
         }
 
         public void DisplayMessage(string message)
