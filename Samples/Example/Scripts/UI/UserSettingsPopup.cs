@@ -94,14 +94,14 @@ namespace RGN.Sample.UI
             tryConnectProvider = EnumAuthProvider.Facebook;
 
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
-            RGNCoreBuilder.I.GetModule<FacebookSignInModule>().OnSignInFacebook(true);
+            FacebookSignInModule.I.TryToSignIn(true);
             SetActiveSpinner(true);
         }
 
         public void OnFBLogout()
         {
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
-            RGNCoreBuilder.I.GetModule<FacebookSignInModule>().SignOutFromFacebook();
+            FacebookSignInModule.I.SignOut();
             SetActiveSpinner(true);
         }
 
@@ -110,14 +110,14 @@ namespace RGN.Sample.UI
             tryConnectProvider = EnumAuthProvider.Google;
 
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
-            RGNCoreBuilder.I.GetModule<GoogleSignInModule>().OnSignInGoogle(true);
+            GoogleSignInModule.I.TryToSignIn(true);
             SetActiveSpinner(true);
         }
 
         public void OnGoogleLogout()
         {
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
-            RGNCoreBuilder.I.GetModule<GoogleSignInModule>().SignOutFromGoogle();
+            GoogleSignInModule.I.SignOut();
             SetActiveSpinner(true);
         }
 
@@ -126,14 +126,14 @@ namespace RGN.Sample.UI
             tryConnectProvider = EnumAuthProvider.Apple;
 
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
-            RGNCoreBuilder.I.GetModule<AppleSignInModule>().OnSignInWithApple(true);
+            AppleSignInModule.I.TryToSignIn(true);
             SetActiveSpinner(true);
         }
 
         public void OnAppleLogout()
         {
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
-            RGNCoreBuilder.I.GetModule<AppleSignInModule>().SignOutFromApple();
+            AppleSignInModule.I.SignOut();
             SetActiveSpinner(true);
         }
 
@@ -145,7 +145,7 @@ namespace RGN.Sample.UI
             tryConnectProvider = EnumAuthProvider.Email;
 
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
-            RGNCoreBuilder.I.GetModule<EmailSignInModule>().OnSignUpWithEmail(email, password);
+            EmailSignInModule.I.TryToSignIn(email, password, true);
             SetActiveSpinner(true);
         }
 
@@ -157,21 +157,21 @@ namespace RGN.Sample.UI
             tryConnectProvider = EnumAuthProvider.Email;
 
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged;
-            RGNCoreBuilder.I.GetModule<EmailSignInModule>().OnSignInWithEmail(email, password);
+            EmailSignInModule.I.TryToSignIn(email, password);
             SetActiveSpinner(true);
         }
 
         public void OnEmailLogout()
         {
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
-            RGNCoreBuilder.I.GetModule<EmailSignInModule>().SignOutFromEmail();
+            EmailSignInModule.I.SignOut();
             SetActiveSpinner(true);
         }
 
         public void OnGuestLogout()
         {
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
-            RGNCoreBuilder.I.GetModule<GuestSignInModule>().SignOutGuest();
+            GuestSignInModule.I.SignOut();
             SetActiveSpinner(true);
         }
 
@@ -221,18 +221,18 @@ namespace RGN.Sample.UI
                                 switch (tryConnectProvider)
                                 {
                                     case EnumAuthProvider.Apple:
-                                        RGNCoreBuilder.I.GetModule<AppleSignInModule>().OnSignInWithApple();
+                                        AppleSignInModule.I.TryToSignIn();
                                         break;
                                     case EnumAuthProvider.Facebook:
-                                        RGNCoreBuilder.I.GetModule<FacebookSignInModule>().OnSignInFacebook();
+                                        FacebookSignInModule.I.TryToSignIn();
                                         break;
                                     case EnumAuthProvider.Google:
-                                        RGNCoreBuilder.I.GetModule<GoogleSignInModule>().OnSignInGoogle();
+                                        GoogleSignInModule.I.TryToSignIn();
                                         break;
                                     case EnumAuthProvider.Email:
                                         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
                                         {
-                                            RGNCoreBuilder.I.GetModule<EmailSignInModule>().OnSignInWithEmail(email, password);
+                                            EmailSignInModule.I.TryToSignIn(email, password);
                                         }
                                         break;
                                 }

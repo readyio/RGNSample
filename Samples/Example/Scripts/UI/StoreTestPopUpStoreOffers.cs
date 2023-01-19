@@ -31,8 +31,7 @@ namespace RGN.Sample.UI
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
             
-            var storeModule = RGNCoreBuilder.I.GetModule<StoreModule>();
-            StoreOffer[] storeOffers = await storeModule.GetByAppIdsAsync(new [] { "io.getready.rgntest" }, int.MaxValue);
+            StoreOffer[] storeOffers = await StoreModule.I.GetByAppIdsAsync(new [] { "io.getready.rgntest" }, int.MaxValue);
             
             foreach (StoreOffer storeOffer in storeOffers)
             {

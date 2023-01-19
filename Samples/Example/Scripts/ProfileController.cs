@@ -13,13 +13,13 @@ namespace RGN.Sample
 
         public static async Task<GameUserFullProfileData> LoadAndCacheAsync()
         {
-            CurrentUserData = await RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().GetFullUserProfileAsync(RGNCoreBuilder.I.MasterAppUser.UserId);
+            CurrentUserData = await UserProfileModule<GameUserFullProfileData>.I.GetFullUserProfileAsync(RGNCoreBuilder.I.MasterAppUser.UserId);
 
             //if (CurrentUserData != null && !string.IsNullOrEmpty(CurrentUserData.avatarPath))
             //{
             //    TaskCompletionSource<Texture2D> callbackAwaiter = new TaskCompletionSource<Texture2D>();
 
-            //    CoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().DownloadAvatar(CurrentUserData.userId, (avatar) =>
+            //    UserProfileModule<GameUserFullProfileData>.I.DownloadAvatar(CurrentUserData.userId, (avatar) =>
             //    {
             //        callbackAwaiter.SetResult(avatar);
             //    });

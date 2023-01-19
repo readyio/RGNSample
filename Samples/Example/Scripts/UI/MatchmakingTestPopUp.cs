@@ -31,7 +31,7 @@ namespace RGN.Sample.UI
 
         private void Start()
         {
-            matchmakingModule = RGNCoreBuilder.I.GetModule<MatchmakingModule>();
+            matchmakingModule = MatchmakingModule.I;
 
             idleBlock.SetActive(true);
             activeMatchBlock.SetActive(false);

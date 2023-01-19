@@ -35,10 +35,10 @@ namespace RGN.Sample
             RGNCoreBuilder.AddModule(new GuestSignInModule());
             RGNCoreBuilder.AddModule(new UserProfileModule<GameUserFullProfileData>());
             RGNCoreBuilder.AddModule(new CurrencyModule());
-            RGNCoreBuilder.AddModule(new GameModule());
+            RGNCoreBuilder.AddModule(new GameProgressModule());
             RGNCoreBuilder.AddModule(new InventoryModule());
             RGNCoreBuilder.AddModule(new StoreModule());
-            RGNCoreBuilder.AddModule(new VirtualItemModule());
+            RGNCoreBuilder.AddModule(new VirtualItemsModule());
             RGNCoreBuilder.AddModule(new CreatorModule());
             RGNCoreBuilder.AddModule(new AchievementsModule());
             RGNCoreBuilder.AddModule(new WalletsModule());

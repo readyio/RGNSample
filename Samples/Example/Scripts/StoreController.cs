@@ -25,7 +25,7 @@ namespace RGN.Sample
         {
             ActualDataLoading = true;
 
-            // productsData = await CoreBuilder.I.GetModule<StoreModule>().GetProducts();
+            // productsData = await StoreModule.I.GetProducts();
             // List<string> products = new List<string>();
             // productsData.products.ForEach((product) => {
             //     products.Add(product.id);
@@ -52,7 +52,7 @@ namespace RGN.Sample
 
         public async void PurchaseProduct(string productId)
         {
-            await RGNCoreBuilder.I.GetModule<CurrencyModule>().PurchaseCurrencyProductAsync(productId).ContinueWithOnMainThread(task =>
+            await CurrencyModule.I.PurchaseCurrencyProductAsync(productId).ContinueWithOnMainThread(task =>
             {
                 currencyData = task.Result;
                 OnCurrencyDataUpdated?.Invoke(currencyData);

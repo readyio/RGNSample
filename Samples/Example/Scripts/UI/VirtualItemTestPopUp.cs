@@ -73,8 +73,7 @@ namespace RGN.Sample.UI
             {
                 UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-                InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-                var result = await inventoryModule.GetVirtualItemUpgradesAsync(item.id);
+                var result = await InventoryModule.I.GetVirtualItemUpgradesAsync(item.id);
 
                 string message = "No upgrades";
                 if (result.itemUpgrades != null && result.itemUpgrades.Count > 0)
@@ -124,8 +123,7 @@ namespace RGN.Sample.UI
             {
                 UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-                InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-                var result = await inventoryModule.UpgradeAsync(item.id, upgradeLevel);
+                var result = await InventoryModule.I.UpgradeAsync(item.id, upgradeLevel);
 
                 string message = "No upgrades";
                 if (result.itemUpgrades.Count > 0)
@@ -182,8 +180,7 @@ namespace RGN.Sample.UI
             {
                 UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-                InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-                var result = await inventoryModule.GetVirtualItemUpgradesAsync(item.id);
+                var result = await InventoryModule.I.GetVirtualItemUpgradesAsync(item.id);
 
                 int upgradeLevelIndex = 0;
                 if (result.itemUpgrades != null && result.itemUpgrades.Count > 0)

@@ -22,8 +22,8 @@
     "/README.md.meta",
     "/package.json",
     "/package.json.meta",
-    "/Runtime",
-    "/Runtime.meta"
+    "/Samples",
+    "/Samples.meta"
   ],
   "samples": [
     {

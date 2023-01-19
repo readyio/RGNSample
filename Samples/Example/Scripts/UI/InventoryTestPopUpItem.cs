@@ -1,4 +1,4 @@
-﻿using RGN.Modules.VirtualItems;
+using RGN.Modules.VirtualItems;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,8 +40,7 @@ namespace RGN.Sample.UI
             //{
             //    UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            //    InventoryModule inventoryModule = CoreBuilder.I.GetModule<InventoryModule>();
-            //    EquipItemResult equipItemResult = await inventoryModule.EquipItem(itemId);
+            //    EquipItemResult equipItemResult = await InventoryModule.I.EquipItem(itemId);
 
             //    PopupMessage popupMessage = new PopupMessage()
             //    {
@@ -52,7 +51,7 @@ namespace RGN.Sample.UI
             //    UIRoot.singleton.ShowPopup<GenericPopup>();
 
 
-            //    inventoryTestPopUp.Init();
+            //    inventoryTestPopUp.InitAsync();
             //}
             //finally
             //{

@@ -139,8 +139,7 @@ namespace RGN.Sample.UI
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
             
-            var storeModule = RGNCoreBuilder.I.GetModule<StoreModule>();
-            PurchaseResult purchaseResult = await storeModule.BuyVirtualItemsAsync(
+            PurchaseResult purchaseResult = await StoreModule.I.BuyVirtualItemsAsync(
                 currentOrderItems,
                 currentOrderCurrencies, 
                 currentOrderOfferId

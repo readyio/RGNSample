@@ -14,8 +14,7 @@
 //
 //     private async void StartMatchTest()
 //     {
-//         var matchmakingModule = RGNCoreBuilder.I.GetModule<MatchmakingModule>();
-//         var response = await matchmakingModule.StartMatch("practice");
+//         var response = await MatchmakingModule.I.StartMatch("practice");
 //         string rawResponse = JsonUtility.ToJson(response);
 //         Debug.Log(rawResponse);
 //     }

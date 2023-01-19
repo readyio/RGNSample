@@ -37,9 +37,7 @@ namespace RGN.Sample.UI
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             List<string> virtualItemsIds = await GetVirtualItemsInventoryIdsAsync();
-            VirtualItemModule virtualItemModule = RGNCoreBuilder.I.GetModule<VirtualItemModule>();
-
-            var virtualItems = await virtualItemModule.GetVirtualItemsByIdsAsync(virtualItemsIds);
+            var virtualItems = await VirtualItemsModule.I.GetVirtualItemsByIdsAsync(virtualItemsIds);
 
             foreach (VirtualItem virtualItem in virtualItems)
             {
@@ -58,9 +56,7 @@ namespace RGN.Sample.UI
         private async Task<List<string>> GetVirtualItemsInventoryIdsAsync() {
             List<string> virtualItemsIds = new List<string>();
 
-            InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-
-            var userVirtualItems = await inventoryModule.GetByAppIdAsync(RGNCoreBuilder.I.AppIDForRequests);
+            var userVirtualItems = await InventoryModule.I.GetByAppIdAsync(RGNCoreBuilder.I.AppIDForRequests);
 
             foreach (var inventoryData in userVirtualItems.items)
             {
@@ -74,8 +70,7 @@ namespace RGN.Sample.UI
         {
             //UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            //InventoryModule inventoryModule = RGNCoreBuilder.I.GetModule<InventoryModule>();
-            //RGNEquipItemResult equipItemResult = await inventoryModule.EquipItem(itemId);
+            //RGNEquipItemResult equipItemResult = await InventoryModule.I.EquipItem(itemId);
 
             //PopupMessage popupMessage = new PopupMessage()
             //{
@@ -87,7 +82,7 @@ namespace RGN.Sample.UI
 
             //UIRoot.singleton.HidePopup<SpinnerPopup>();
 
-            //Init();
+            //InitAsync();
         }
 
         public void OnCloseClick()

@@ -86,7 +86,7 @@ namespace RGN.Sample.UI
 
         private async void UpdateProfileAsync(string playerName)
         {
-            await RGNCoreBuilder.I.GetModule<UserProfileModule<GameUserFullProfileData>>().UpdateProfileAsync(playerName);
+            await UserProfileModule<GameUserFullProfileData>.I.UpdateProfileAsync(playerName);
             ProfileController.CurrentUserData.displayName = playerName;
 
             SetActiveSpinner(false);

@@ -10,13 +10,13 @@ namespace RGN.Sample.UI
         {
             if (Bootstrap.I.FirebaseBuilded)
             {
-                RGNCoreBuilder.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
-                RGNCoreBuilder.I.GetModule<GuestSignInModule>().SignInAsGuest();
+                RGNCore.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
+                GuestSignInModule.I.TryToSignIn();
             }
             else
             {
                 Bootstrap.I.BuildAsync();
-                RGNCoreBuilder.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
+                RGNCore.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
             }
 
             base.Show(isInstant, onComplete);
@@ -24,7 +24,7 @@ namespace RGN.Sample.UI
 
         public override void Hide(bool isInstant, Action onComplete)
         {
-            RGNCoreBuilder.I.AuthenticationChanged -= FirebaseManager_OnAuthenticationChanged;
+            RGNCore.I.AuthenticationChanged -= FirebaseManager_OnAuthenticationChanged;
             base.Hide(isInstant, onComplete);
         }
 
@@ -43,7 +43,7 @@ namespace RGN.Sample.UI
                         {
                             Bootstrap.I.DisplayMessage("Error: No Account found");
                             //No Account found, Signout current user. 
-                            RGNCoreBuilder.I.SignOutRGN();
+                            RGNCore.I.SignOutRGN();
 
                             return;
                         }
@@ -64,15 +64,11 @@ namespace RGN.Sample.UI
                     }
                 case EnumLoginState.NotLoggedIn:
                     {
-
                         Bootstrap.I.DisplayMessage("User Not Logged In");
-                        RGNCoreBuilder.I.GetModule<GuestSignInModule>().SignInAsGuest();
+                        GuestSignInModule.I.TryToSignIn();
                     }
                     break;
             }
         }
-
-
-
     }
 }

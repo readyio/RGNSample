@@ -35,7 +35,7 @@ namespace RGN.Sample.UI
 
         public void OnResetPassswordClick()
         {
-            RGNCoreBuilder.I.GetModule<EmailSignInModule>().SendPasswordResetEmail(emailInputField.text.Trim());
+            EmailSignInModule.I.SendPasswordResetEmail(emailInputField.text.Trim());
             UIRoot.singleton.HidePopup<ForgotPasswordPanel>();
         }
     }

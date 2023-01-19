@@ -17,18 +17,21 @@ namespace RGN.Sample.UI
 
         private List<InAppPurchasesTestPopUpItem> items = new List<InAppPurchasesTestPopUpItem>();
 
-        public override void Show(bool isInstant, Action onComplete) {
+        public override void Show(bool isInstant, Action onComplete)
+        {
             closeButton.onClick.AddListener(OnCloseClick);
             buyButton.onClick.AddListener(OnBuyRGNCoinButtonClick);
             base.Show(isInstant, onComplete);
 
-            Init();
+            InitAsync();
         }
 
-        private async void Init() {
+        private async void InitAsync()
+        {
             itemTemplate.SetActive(false);
 
-            foreach (InAppPurchasesTestPopUpItem item in items) {
+            foreach (InAppPurchasesTestPopUpItem item in items)
+            {
                 Destroy(item.gameObject);
             }
             items.Clear();
@@ -40,12 +43,12 @@ namespace RGN.Sample.UI
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
-        private async Task InitPurchasesAsync() {
-            CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
+        private async Task InitPurchasesAsync()
+        {
+            CurrencyProductsData productsData = await CurrencyModule.I.GetInAppPurchaseCurrencyDataAsync();
 
-            CurrencyProductsData productsData = await inAppPurchaseModule.GetInAppPurchaseCurrencyDataAsync();
-
-            foreach (CurrencyProduct product in productsData.products) {
+            foreach (CurrencyProduct product in productsData.products)
+            {
                 //TODO: you have to register your products in Unity IAP ConfigurationBuilder,
                 // use "product.type" to determine Consumable/Non-Consumable products
 
@@ -64,18 +67,19 @@ namespace RGN.Sample.UI
         {
             OnBuyRGNCoinAsync(testId);
         }
-        private async void OnBuyProductButtonClickAsync(string productId) {
+        private async void OnBuyProductButtonClickAsync(string productId)
+        {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             //TODO: you need to Call IAP purchase method from Unity IAP Package,
             // use OnSuccefullPurchase event of IAP Package for calling of our PurchaseProduct method,
             // we don't do purchase validation on your side
-            CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
-            UserCurrencyData currencyData = await inAppPurchaseModule.PurchaseCurrencyProductAsync(productId);
+            UserCurrencyData currencyData = await CurrencyModule.I.PurchaseCurrencyProductAsync(productId);
 
             string result = "";
 
-            foreach (Currency currency in currencyData.currencies) {
+            foreach (Currency currency in currencyData.currencies)
+            {
                 result += "/n" + currency.name + " : " + currency.quantity.ToString();
             }
 
@@ -89,7 +93,8 @@ namespace RGN.Sample.UI
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
-        public async void OnBuyRGNCoinAsync(string iapUUID) {
+        public async void OnBuyRGNCoinAsync(string iapUUID)
+        {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             //TODO: you need to Call IAP purchase method from Unity IAP Package,
@@ -97,16 +102,18 @@ namespace RGN.Sample.UI
             // we don't do purchase validation on your side
             // You will get isoCurrenyCode and localizedPrice from Unity IAP product's metadata
             // More details : https://docs.unity3d.com/Manual/UnityIAPBrowsingMetadata.html
-            CurrencyModule inAppPurchaseModule = RGNCoreBuilder.I.GetModule<CurrencyModule>();
-            PurchaseRGNCoinResponseData purchaseRGNCoinResult = await inAppPurchaseModule.PurchaseRGNCoinAsync(iapUUID);
+            PurchaseRGNCoinResponseData purchaseRGNCoinResult = await CurrencyModule.I.PurchaseRGNCoinAsync(iapUUID);
 
             string result = "";
-            if (purchaseRGNCoinResult.success) {
-                foreach (Currency currency in purchaseRGNCoinResult.currencies) {
+            if (purchaseRGNCoinResult.success)
+            {
+                foreach (Currency currency in purchaseRGNCoinResult.currencies)
+                {
                     result += "/n" + currency.name + " : " + currency.quantity.ToString();
                 }
             }
-            else {
+            else
+            {
                 result += "failed";
             }
 
@@ -121,7 +128,8 @@ namespace RGN.Sample.UI
         }
 
 
-        public void OnCloseClick() {
+        public void OnCloseClick()
+        {
             Hide(true, null);
         }
     }

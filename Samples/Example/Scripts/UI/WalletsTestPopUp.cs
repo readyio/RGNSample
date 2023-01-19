@@ -35,8 +35,7 @@ namespace RGN.Sample.UI
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            WalletsModule module = RGNCoreBuilder.I.GetModule<WalletsModule>();
-            IsUserHavePrimaryWalletResponseData response = await module.IsUserHavePrimaryWalletAsync();
+            IsUserHavePrimaryWalletResponseData response = await WalletsModule.I.IsUserHavePrimaryWalletAsync();
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 
@@ -53,8 +52,7 @@ namespace RGN.Sample.UI
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            WalletsModule module = RGNCoreBuilder.I.GetModule<WalletsModule>();
-            GetUserWalletsResponseData response = await module.GetUserWalletsAsync();
+            GetUserWalletsResponseData response = await WalletsModule.I.GetUserWalletsAsync();
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 
@@ -80,8 +78,7 @@ namespace RGN.Sample.UI
 
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            WalletsModule module = RGNCoreBuilder.I.GetModule<WalletsModule>();
-            CreateWalletResponseData response = await module.CreateWalletAsync(password);
+            CreateWalletResponseData response = await WalletsModule.I.CreateWalletAsync(password);
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 
