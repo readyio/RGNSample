@@ -17,6 +17,8 @@ namespace RGN.Sample.UI
             {
                 await Bootstrap.I.BuildAsync();
                 RGNCore.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
+                var authState = RGNCore.I.CurrentAuthReadyState;
+                FirebaseManager_OnAuthenticationChanged(authState.Item1, authState.Item2);
 
                 string instanceId = await Firebase.Analytics.FirebaseAnalytics.GetAnalyticsInstanceIdAsync();
                 UnityEngine.Debug.Log("instanceId: " + instanceId);
