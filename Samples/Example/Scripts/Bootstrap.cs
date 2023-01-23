@@ -53,6 +53,11 @@ namespace RGN.Sample
             RGNCoreBuilder.Dispose();
         }
 
+        public void CreateInstance()
+        {
+            RGNCoreBuilder.CreateInstance(new Impl.Firebase.Dependencies());
+        }
+
         public Task BuildAsync()
         {
             if (FirebaseBuilded)
@@ -60,7 +65,7 @@ namespace RGN.Sample
                 return Task.CompletedTask;
             }
             FirebaseBuilded = true;
-            return RGNCoreBuilder.BuildAsync(new Impl.Firebase.Dependencies());
+            return RGNCoreBuilder.BuildAsync();
         }
 
         public void DisplayMessage(string message)
