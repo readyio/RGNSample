@@ -17,14 +17,6 @@
     "unity"
   ],
   "category": "Unity",
-  "files": [
-    "/README.md",
-    "/README.md.meta",
-    "/package.json",
-    "/package.json.meta",
-    "/Samples",
-    "/Samples.meta"
-  ],
   "samples": [
     {
       "displayName": "Demo Scene Sample",
