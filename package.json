@@ -29,7 +29,7 @@
     {
       "displayName": "Demo Scene Sample",
       "description": "Contains sample demo scene with some basic UI",
-      "path": "Samples/Example"
+      "path": "Samples~/Example"
     }
   ],
   "type": "sample",
