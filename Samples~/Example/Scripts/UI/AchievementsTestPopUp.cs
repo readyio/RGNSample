@@ -1,6 +1,7 @@
 using RGN.Modules.Achievement;
 using System;
 using System.Collections.Generic;
+using RGN.Model.Response;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,9 +36,8 @@ namespace RGN.Sample.UI
 
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            GetAchievementsResponseData responseData = await AchievementsModule.I.GetAsync();
-
-            foreach (RGNAchievementDataV2 achievement in responseData.achievements)
+            List<RGNAchievementDataV2> achievements = await AchievementsModule.I.GetAsync();
+            foreach (RGNAchievementDataV2 achievement in achievements)
             {
                 GameObject itemGO = Instantiate(itemTemplate, itemContent);
                 itemGO.SetActive(true);
@@ -56,7 +56,7 @@ namespace RGN.Sample.UI
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            TriggerAchievementResponseData response = await AchievementsModule.I.TriggerAsync(achievementId);
+            BaseResponseData response = await AchievementsModule.I.TriggerAsync(achievementId);
 
             PopupMessage popupMessage = new PopupMessage()
             {
