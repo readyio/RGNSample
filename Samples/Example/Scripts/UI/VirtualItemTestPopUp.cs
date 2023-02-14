@@ -73,24 +73,24 @@ namespace RGN.Sample.UI
             {
                 UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-                var result = await InventoryModule.I.GetVirtualItemUpgradesAsync(item.id);
+                //var result = await InventoryModule.I.GetVirtualItemUpgradesAsync(item.id);
 
-                string message = "No upgrades";
-                if (result.itemUpgrades != null && result.itemUpgrades.Count > 0)
-                {
-                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                    for (int i = 0; i < result.itemUpgrades.Count; ++i)
-                    {
-                        var item = result.itemUpgrades[i];
-                        sb.Append("For upgrade ID: '");
-                        sb.Append(item.upgradeId);
-                        sb.Append("' upgrade level is: ");
-                        sb.AppendLine(item.upgradeLevel.ToString());
-                    }
-                    message = sb.ToString();
-                }
-                SetEvaluationResultTextAndUpdateContentHeight(message);
-                Debug.Log(message);
+                //string message = "No upgrades";
+                //if (result.itemUpgrades != null && result.itemUpgrades.Count > 0)
+                //{
+                //    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                //    for (int i = 0; i < result.itemUpgrades.Count; ++i)
+                //    {
+                //        var item = result.itemUpgrades[i];
+                //        sb.Append("For upgrade ID: '");
+                //        sb.Append(item.upgradeId);
+                //        sb.Append("' upgrade level is: ");
+                //        sb.AppendLine(item.upgradeLevel.ToString());
+                //    }
+                //    message = sb.ToString();
+                //}
+                //SetEvaluationResultTextAndUpdateContentHeight(message);
+                //Debug.Log(message);
             }
             catch (Exception ex)
             {
@@ -180,35 +180,35 @@ namespace RGN.Sample.UI
             {
                 UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-                var result = await InventoryModule.I.GetVirtualItemUpgradesAsync(item.id);
+                //var result = await InventoryModule.I.GetVirtualItemUpgradesAsync(item.id);
 
-                int upgradeLevelIndex = 0;
-                if (result.itemUpgrades != null && result.itemUpgrades.Count > 0)
-                {
-                    upgradeLevelIndex = result.itemUpgrades[0].upgradeLevel;
-                }
-                WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(properties);
-                if (upgradeLevelIndex < 0 || upgradeLevelIndex >= dto.Upgrades.Length)
-                {
-                    ShowPopupAndPrintErrorMessage("Error: Current upgrade level exists the upgrades in properties: " + upgradeLevelIndex);
-                    return;
-                }
+                //int upgradeLevelIndex = 0;
+                //if (result.itemUpgrades != null && result.itemUpgrades.Count > 0)
+                //{
+                //    upgradeLevelIndex = result.itemUpgrades[0].upgradeLevel;
+                //}
+                //WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(properties);
+                //if (upgradeLevelIndex < 0 || upgradeLevelIndex >= dto.Upgrades.Length)
+                //{
+                //    ShowPopupAndPrintErrorMessage("Error: Current upgrade level exists the upgrades in properties: " + upgradeLevelIndex);
+                //    return;
+                //}
 
-                UpgradeDTO currentUpgrade = dto.Upgrades[upgradeLevelIndex];
-                UpgradeDTO nextUpgrade = upgradeLevelIndex < dto.Upgrades.Length - 2 ? dto.Upgrades[upgradeLevelIndex + 1] : null;
+                //UpgradeDTO currentUpgrade = dto.Upgrades[upgradeLevelIndex];
+                //UpgradeDTO nextUpgrade = upgradeLevelIndex < dto.Upgrades.Length - 2 ? dto.Upgrades[upgradeLevelIndex + 1] : null;
 
-                var sb = new System.Text.StringBuilder();
-                AddValueForField(currentUpgrade.Damage, nextUpgrade?.Damage, nameof(currentUpgrade.Damage), sb);
-                AddValueForField(currentUpgrade.UserAccuracy, nextUpgrade?.UserAccuracy, nameof(currentUpgrade.UserAccuracy), sb);
-                AddValueForField(currentUpgrade.Accuracy, nextUpgrade?.Accuracy, nameof(currentUpgrade.Accuracy), sb);
-                AddValueForField(currentUpgrade.UserFireRate, nextUpgrade?.UserFireRate, nameof(currentUpgrade.UserFireRate), sb);
-                AddValueForField(currentUpgrade.FireRate, nextUpgrade?.FireRate, nameof(currentUpgrade.FireRate), sb);
-                AddValueForField(currentUpgrade.Reload, nextUpgrade?.Reload, nameof(currentUpgrade.Reload), sb);
-                AddValueForField(currentUpgrade.Range, nextUpgrade?.Range, nameof(currentUpgrade.Range), sb);
+                //var sb = new System.Text.StringBuilder();
+                //AddValueForField(currentUpgrade.Damage, nextUpgrade?.Damage, nameof(currentUpgrade.Damage), sb);
+                //AddValueForField(currentUpgrade.UserAccuracy, nextUpgrade?.UserAccuracy, nameof(currentUpgrade.UserAccuracy), sb);
+                //AddValueForField(currentUpgrade.Accuracy, nextUpgrade?.Accuracy, nameof(currentUpgrade.Accuracy), sb);
+                //AddValueForField(currentUpgrade.UserFireRate, nextUpgrade?.UserFireRate, nameof(currentUpgrade.UserFireRate), sb);
+                //AddValueForField(currentUpgrade.FireRate, nextUpgrade?.FireRate, nameof(currentUpgrade.FireRate), sb);
+                //AddValueForField(currentUpgrade.Reload, nextUpgrade?.Reload, nameof(currentUpgrade.Reload), sb);
+                //AddValueForField(currentUpgrade.Range, nextUpgrade?.Range, nameof(currentUpgrade.Range), sb);
 
-                string message = sb.ToString();
-                SetEvaluationResultTextAndUpdateContentHeight(message);
-                Debug.Log(message);
+                //string message = sb.ToString();
+                //SetEvaluationResultTextAndUpdateContentHeight(message);
+                //Debug.Log(message);
             }
             catch (Exception ex)
             {
