@@ -1,7 +1,6 @@
-using RGN;
-using RGN.Modules.Matchmaking;
 using System.Collections.Generic;
 using System.Globalization;
+using RGN.Modules.Matchmaking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,20 +75,13 @@ namespace RGN.Sample.UI
             currentMatchGameType = "practice";
 
             StartMatchResponseData response = await matchmakingModule.StartMatchAsync(currentMatchGameType);
-            if (response.status == 200)
-            {
-                currentMatchId = response.matchId;
-                matchIdText.text = currentMatchId;
+            currentMatchId = response.matchId;
+            matchIdText.text = currentMatchId;
 
-                scoreInput.text = string.Empty;
+            scoreInput.text = string.Empty;
 
-                idleBlock.SetActive(false);
-                activeMatchBlock.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("StartMatch error: " + response.message);
-            }
+            idleBlock.SetActive(false);
+            activeMatchBlock.SetActive(true);
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
@@ -114,21 +106,14 @@ namespace RGN.Sample.UI
             historyItems = new List<MatchmakingTestPopUpHistoryItem>();
 
             GetMatchmakingHistoryResponseData response = await matchmakingModule.GetHistoryAsync();
-            if (response.status == 200)
+            List<MatchmakingRecord> historyRecords = response.history;
+            foreach (var historyRecord in historyRecords)
             {
-                List<MatchmakingRecord> historyRecords = response.history;
-                foreach (var historyRecord in historyRecords)
-                {
-                    MatchmakingTestPopUpHistoryItem historyItem = Instantiate(historyItemTemplate, historyItemContent);
-                    historyItem.gameObject.SetActive(true);
-                    historyItem.Init(historyRecord);
+                MatchmakingTestPopUpHistoryItem historyItem = Instantiate(historyItemTemplate, historyItemContent);
+                historyItem.gameObject.SetActive(true);
+                historyItem.Init(historyRecord);
 
-                    historyItems.Add(historyItem);
-                }
-            }
-            else
-            {
-                Debug.Log("GetHistory error: " + response.message);
+                historyItems.Add(historyItem);
             }
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
@@ -142,18 +127,11 @@ namespace RGN.Sample.UI
             scoreInput.text = score.ToString(CultureInfo.InvariantCulture);
 
             SubmitMatchScoreResponseData response = await matchmakingModule.SubmitMatchScoreAsync(currentMatchGameType, currentMatchId, score);
-            if (response.status == 200)
-            {
-                currentMatchGameType = string.Empty;
-                currentMatchId = string.Empty;
+            currentMatchGameType = string.Empty;
+            currentMatchId = string.Empty;
 
-                activeMatchBlock.SetActive(false);
-                submittedScoreBlock.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("SubmitMatchScore error: " + response.message);
-            }
+            activeMatchBlock.SetActive(false);
+            submittedScoreBlock.SetActive(true);
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
