@@ -33,8 +33,8 @@ namespace RGN.Sample.UI
 
             // we can get user currencies in another way, using ProfileController.CurrentUserData.currencies
             // but loading user currencies from method return 100% actual data
-            UserCurrencyData userCurrencyData = await UserProfileModule<GameUserFullProfileData>.I.GetUserCurrenciesAsync();
-            foreach (Currency currency in userCurrencyData.currencies)
+            var currencies = await UserProfileModule<GameUserFullProfileData>.I.GetUserCurrenciesAsync();
+            foreach (Currency currency in currencies)
             {
                 GameObject itemGO = Instantiate(itemTemplate, itemContent);
                 itemGO.SetActive(true);
