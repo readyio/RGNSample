@@ -36,7 +36,7 @@ namespace RGN.Sample.UI
             foreach (StoreOffer storeOffer in storeOffers)
             {
                 // ignore offers without prices
-                if (storeOffer.prices.Count == 0)
+                if (storeOffer.prices == null || storeOffer.prices.Count == 0)
                 {
                     continue;
                 }

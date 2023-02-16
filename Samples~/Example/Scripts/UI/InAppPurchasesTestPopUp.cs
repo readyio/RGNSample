@@ -74,11 +74,11 @@ namespace RGN.Sample.UI
             //TODO: you need to Call IAP purchase method from Unity IAP Package,
             // use OnSuccefullPurchase event of IAP Package for calling of our PurchaseProduct method,
             // we don't do purchase validation on your side
-            UserCurrencyData currencyData = await CurrencyModule.I.PurchaseCurrencyProductAsync(productId);
+            var currencies = await CurrencyModule.I.PurchaseCurrencyProductAsync(productId);
 
             string result = "";
 
-            foreach (Currency currency in currencyData.currencies)
+            foreach (Currency currency in currencies)
             {
                 result += "/n" + currency.name + " : " + currency.quantity.ToString();
             }
@@ -102,19 +102,12 @@ namespace RGN.Sample.UI
             // we don't do purchase validation on your side
             // You will get isoCurrenyCode and localizedPrice from Unity IAP product's metadata
             // More details : https://docs.unity3d.com/Manual/UnityIAPBrowsingMetadata.html
-            PurchaseRGNCoinResponseData purchaseRGNCoinResult = await CurrencyModule.I.PurchaseRGNCoinAsync(iapUUID);
+            var currencies = await CurrencyModule.I.PurchaseRGNCoinAsync(iapUUID);
 
             string result = "";
-            if (purchaseRGNCoinResult.success)
+            foreach (Currency currency in currencies)
             {
-                foreach (Currency currency in purchaseRGNCoinResult.currencies)
-                {
-                    result += "/n" + currency.name + " : " + currency.quantity.ToString();
-                }
-            }
-            else
-            {
-                result += "failed";
+                result += "/n" + currency.name + " : " + currency.quantity.ToString();
             }
 
             PopupMessage popupMessage = new PopupMessage() {

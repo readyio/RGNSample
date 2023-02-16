@@ -38,7 +38,7 @@ namespace RGN.Sample.UI
             foreach (VirtualItem virtualItem in virtualItems)
             {
                 // ignore virtual items without price
-                if (virtualItem.prices.Count == 0)
+                if (virtualItem.prices == null || virtualItem.prices.Count == 0)
                 {
                     continue;
                 }

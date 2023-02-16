@@ -2,23 +2,24 @@ using Firebase.Extensions;
 using RGN;
 using RGN.Modules.Currency;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RGN.Sample
 {
     public class StoreController : MonoBehaviour
     {
-        public event Action<UserCurrencyData> OnCurrencyDataUpdated = null;
+        public event Action<List<Currency>> OnCurrencyDataUpdated = null;
 
         public CurrencyProductsData productsData = new CurrencyProductsData();
-        public UserCurrencyData currencyData = new UserCurrencyData();
+        public List<Currency> currencies;
         public bool ActualDataLoading { get; private set; } = false;
         public bool ActualData { get; private set; } = false;
 
-        public void RaiseOnCurrencyDataUpdated(UserCurrencyData currencyData)
+        public void RaiseOnCurrencyDataUpdated(List<Currency> currencies)
         {
-            this.currencyData = currencyData;
-            OnCurrencyDataUpdated?.Invoke(currencyData);
+            this.currencies = currencies;
+            OnCurrencyDataUpdated?.Invoke(currencies);
         }
 
         public void LoadActualDataFromFirebase()
@@ -39,10 +40,7 @@ namespace RGN.Sample
             //     } 
             // });
 
-            RaiseOnCurrencyDataUpdated(new UserCurrencyData()
-            {
-                currencies = ProfileController.CurrentUserData.currencies
-            });
+            RaiseOnCurrencyDataUpdated(ProfileController.CurrentUserData.currencies);
 
             ActualDataLoading = false;
             ActualData = true;
@@ -54,14 +52,14 @@ namespace RGN.Sample
         {
             await CurrencyModule.I.PurchaseCurrencyProductAsync(productId).ContinueWithOnMainThread(task =>
             {
-                currencyData = task.Result;
-                OnCurrencyDataUpdated?.Invoke(currencyData);
+                currencies = task.Result;
+                OnCurrencyDataUpdated?.Invoke(currencies);
             });
         }
 
         public Currency GetCurrency(string currencyName)
         {
-            Currency firebaseCurrency = currencyData.currencies.Find(x => x.name == currencyName);
+            Currency firebaseCurrency = currencies.Find(x => x.name == currencyName);
             if (firebaseCurrency == null) firebaseCurrency = new Currency() { name = currencyName, quantity = 0 };
             return firebaseCurrency;
         }
