@@ -1,4 +1,6 @@
 ﻿using System;
+using RGN.Modules.GameProgress;
+using RGN.Modules.UserProfile;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +21,14 @@ namespace RGN.Sample.UI
         [SerializeField] private Button walletsTestButton;
         [SerializeField] private Button matchmakingTestButton;
         [SerializeField] private Button settingsButton;
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                UserProfileModule<GameUserFullProfileData>.I.PingAsync();
+            }
+        }
 
         public override void Show(bool isInstant, Action onComplete)
         {
