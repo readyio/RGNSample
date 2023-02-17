@@ -60,29 +60,10 @@ namespace RGN.Sample.UI
 
             foreach (var inventoryData in userVirtualItems.items)
             {
-                virtualItemsIds.Add(inventoryData.id);
+                virtualItemsIds.Add(inventoryData.virtualItemId);
             }
 
             return virtualItemsIds;
-        }
-
-        private void OnEquipButtonClick(string itemId)
-        {
-            //UIRoot.singleton.ShowPopup<SpinnerPopup>();
-
-            //RGNEquipItemResult equipItemResult = await InventoryModule.I.EquipItem(itemId);
-
-            //PopupMessage popupMessage = new PopupMessage()
-            //{
-            //    Message = $"success: {equipItemResult.success}"
-            //};
-            //GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
-            //genericPopup.ShowMessage(popupMessage);
-            //UIRoot.singleton.ShowPopup<GenericPopup>();
-
-            //UIRoot.singleton.HidePopup<SpinnerPopup>();
-
-            //InitAsync();
         }
 
         public void OnCloseClick()

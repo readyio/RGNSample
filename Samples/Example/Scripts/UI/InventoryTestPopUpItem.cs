@@ -10,7 +10,6 @@ namespace RGN.Sample.UI
         [SerializeField] private Button openVirtualItemTestPopupButton;
         [SerializeField] private Image baseImage;
         [SerializeField] private TMP_Text nameText;
-        [SerializeField] private Button equipButton;
 
         private string itemId;
 
@@ -20,8 +19,6 @@ namespace RGN.Sample.UI
 
         private void OnEnable()
         {
-            equipButton.onClick.RemoveAllListeners();
-            equipButton.onClick.AddListener(HandleEquipButtonClick);
             openVirtualItemTestPopupButton.onClick.RemoveAllListeners();
             openVirtualItemTestPopupButton.onClick.AddListener(OnOpenVirtualItemTestPopupButtonClick);
         }
@@ -32,32 +29,7 @@ namespace RGN.Sample.UI
             itemId = virtualItem.id;
             nameText.text = virtualItem.name;
         }
-
-        private void HandleEquipButtonClick()
-        {
-            throw new System.NotImplementedException();
-            //try
-            //{
-            //    UIRoot.singleton.ShowPopup<SpinnerPopup>();
-
-            //    EquipItemResult equipItemResult = await InventoryModule.I.EquipItem(itemId);
-
-            //    PopupMessage popupMessage = new PopupMessage()
-            //    {
-            //        Message = $"success: {equipItemResult.success}"
-            //    };
-            //    GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
-            //    genericPopup.ShowMessage(popupMessage);
-            //    UIRoot.singleton.ShowPopup<GenericPopup>();
-
-
-            //    inventoryTestPopUp.InitAsync();
-            //}
-            //finally
-            //{
-            //    UIRoot.singleton.HidePopup<SpinnerPopup>();
-            //}
-        }
+        
         private void OnOpenVirtualItemTestPopupButtonClick()
         {
             UIRoot.singleton.ShowPopup<VirtualItemTestPopUp>();

@@ -29,9 +29,6 @@ namespace RGN.Sample
         {
             ThrowIf.Field.IsNotNull(I, nameof(I));
             I = this;
-            RGNCoreBuilder.AddModule(new AppleSignInModule());
-            RGNCoreBuilder.AddModule(new GoogleSignInModule());
-            RGNCoreBuilder.AddModule(new FacebookSignInModule());
             RGNCoreBuilder.AddModule(new EmailSignInModule());
             RGNCoreBuilder.AddModule(new GuestSignInModule());
             RGNCoreBuilder.AddModule(new UserProfileModule<GameUserFullProfileData>());
