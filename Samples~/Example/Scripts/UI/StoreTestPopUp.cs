@@ -30,8 +30,8 @@ namespace RGN.Sample.UI
         private readonly Stack<SubWindow> subWindowStack = new Stack<SubWindow>();
 
         private string currentOrderOfferId;
-        private string[] currentOrderItems;
-        private string[] currentOrderCurrencies;
+        private List<string> currentOrderItems;
+        private List<string> currentOrderCurrencies;
         
         private void OnEnable()
         {
@@ -94,7 +94,7 @@ namespace RGN.Sample.UI
             var itemSelector = GetSubWindowGO(SubWindow.ItemSelector)
                 .GetComponent<StoreTestPopUpItemSelector>();
             itemSelector.Init(storeOffer.itemIds, itemIds => {
-                currentOrderItems = itemIds.ToArray();
+                currentOrderItems = itemIds;
                 
                 ShowSubWindow(SubWindow.PriceSelector);
                 
@@ -118,7 +118,7 @@ namespace RGN.Sample.UI
         private void OnVirtualItemPurchaseRequest(VirtualItem virtualItem)
         {
             currentOrderOfferId = null;
-            currentOrderItems = new[] { virtualItem.id };
+            currentOrderItems = new List<string> { virtualItem.id };
             
             ShowSubWindow(SubWindow.PriceSelector);
             
@@ -149,10 +149,10 @@ namespace RGN.Sample.UI
             purchasedItems.Append($"OfferId: {purchaseResult.offerId}");
             purchasedItems.Append("Purchased items: ");
             purchasedItems.Append(Environment.NewLine);
-            for (var i = 0; i < purchaseResult.itemIds.Length; i++)
+            for (var i = 0; i < purchaseResult.itemIds.Count; i++)
             {
                 purchasedItems.Append(purchaseResult.itemIds[i]);
-                if (i < purchaseResult.itemIds.Length - 1)
+                if (i < purchaseResult.itemIds.Count - 1)
                 {
                     purchasedItems.Append(",");
                 }
@@ -196,7 +196,7 @@ namespace RGN.Sample.UI
             return groups;
         }
         
-        private List<PriceInfo> PreparePrices(List<PriceInfo> prices, string[] itemIds)
+        private List<PriceInfo> PreparePrices(List<PriceInfo> prices, List<string> itemIds)
         {
             List<PriceInfo> preparedPrices = new List<PriceInfo>();
 

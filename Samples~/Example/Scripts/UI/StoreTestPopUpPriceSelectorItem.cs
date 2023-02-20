@@ -14,7 +14,7 @@ namespace RGN.Sample.UI
         [SerializeField] private Button button;
 
         private List<PriceInfo> groupedPrices;
-        private Action<string[]> onClick;
+        private Action<List<string>> onClick;
         
         private void OnEnable()
         {
@@ -22,7 +22,7 @@ namespace RGN.Sample.UI
             button.onClick.AddListener(HandleClick);
         }
 
-        public void Init(List<PriceInfo> groupedPrices, Action<string[]> onClick)
+        public void Init(List<PriceInfo> groupedPrices, Action<List<string>> onClick)
         {
             this.groupedPrices = groupedPrices;
             this.onClick = onClick;
@@ -44,10 +44,10 @@ namespace RGN.Sample.UI
 
         private void HandleClick()
         {
-            string[] currencies = new string[groupedPrices.Count];
+            List<string> currencies = new List<string>(groupedPrices.Count);
             for (int i = 0; i < groupedPrices.Count; i++)
             {
-                currencies[i] = groupedPrices[i].name;
+                currencies.Add(groupedPrices[i].name);
             }
             onClick?.Invoke(currencies);
         }

@@ -18,7 +18,7 @@ namespace RGN.Sample.UI
             itemTemplate.gameObject.SetActive(false);
         }
 
-        public void Init(List<List<PriceInfo>> groupedPrices, Action<string[]> onSelect)
+        public void Init(List<List<PriceInfo>> groupedPrices, Action<List<string>> onSelect)
         {
             foreach (StoreTestPopUpPriceSelectorItem item in items)
             {

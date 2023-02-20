@@ -8,12 +8,12 @@ namespace RGN.Sample.UI
     {
         [SerializeField] private StoreTestPopUpStoreOffer itemTemplate;
         [SerializeField] private Transform itemContent;
-        
+
         private readonly List<StoreTestPopUpStoreOffer> items = new List<StoreTestPopUpStoreOffer>();
-        
+
         public delegate void BuyStoreOfferRequestDelegate(StoreOffer offer);
         private event BuyStoreOfferRequestDelegate buyRequestCallback;
-        
+
         private void Start()
         {
             itemTemplate.gameObject.SetActive(false);
@@ -22,7 +22,7 @@ namespace RGN.Sample.UI
         public void Init(BuyStoreOfferRequestDelegate buyRequestCallback)
         {
             this.buyRequestCallback = buyRequestCallback;
-            
+
             ClearItems();
             CreateItems();
         }
@@ -30,9 +30,9 @@ namespace RGN.Sample.UI
         private async void CreateItems()
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
-            
-            StoreOffer[] storeOffers = await StoreModule.I.GetByAppIdsAsync(new [] { "io.getready.rgntest" }, int.MaxValue);
-            
+
+            var storeOffers = await StoreModule.I.GetByAppIdsAsync(new List<string>() { "io.getready.rgntest" }, int.MaxValue);
+
             foreach (StoreOffer storeOffer in storeOffers)
             {
                 // ignore offers without prices
@@ -40,31 +40,31 @@ namespace RGN.Sample.UI
                 {
                     continue;
                 }
-                
+
                 StoreTestPopUpStoreOffer item = Instantiate(itemTemplate, itemContent);
                 item.gameObject.SetActive(true);
                 item.Init(storeOffer);
                 item.OnInfoButtonClick += OnInfoButtonClick;
                 item.OnBuyButtonClick += OnBuyBuyButtonClick;
-            
+
                 items.Add(item);
             }
-            
+
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
         private void ClearItems()
         {
             itemTemplate.gameObject.SetActive(false);
-            
+
             foreach (StoreTestPopUpStoreOffer item in items)
             {
                 Destroy(item.gameObject);
             }
-            
+
             items.Clear();
         }
-        
+
         private void OnInfoButtonClick(StoreOffer offer)
         {
             PopupMessage popupMessage = new PopupMessage { Message = JsonUtility.ToJson(offer) };

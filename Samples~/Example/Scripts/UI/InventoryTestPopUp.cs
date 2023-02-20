@@ -37,6 +37,11 @@ namespace RGN.Sample.UI
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
             List<string> virtualItemsIds = await GetVirtualItemsInventoryIdsAsync();
+            if (virtualItemsIds.Count == 0)
+            {
+                UIRoot.singleton.HidePopup<SpinnerPopup>();
+                return;
+            }
             var virtualItems = await VirtualItemsModule.I.GetVirtualItemsByIdsAsync(virtualItemsIds);
 
             foreach (VirtualItem virtualItem in virtualItems)
@@ -58,7 +63,7 @@ namespace RGN.Sample.UI
 
             var userVirtualItems = await InventoryModule.I.GetByAppIdAsync(RGNCoreBuilder.I.AppIDForRequests);
 
-            foreach (var inventoryData in userVirtualItems.items)
+            foreach (var inventoryData in userVirtualItems)
             {
                 virtualItemsIds.Add(inventoryData.virtualItemId);
             }

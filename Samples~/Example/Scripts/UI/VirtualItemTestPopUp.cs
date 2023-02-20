@@ -126,13 +126,13 @@ namespace RGN.Sample.UI
                 var result = await InventoryModule.I.UpgradeAsync(item.id, upgradeLevel);
 
                 string message = "No upgrades";
-                if (result.itemUpgrades.Count > 0)
+                if (result.Count > 0)
                 {
                     var sb = new System.Text.StringBuilder();
                     sb.AppendLine("Upgrades: ");
-                    for (int i = 0; i < result.itemUpgrades.Count; ++i)
+                    for (int i = 0; i < result.Count; ++i)
                     {
-                        var upgrade = result.itemUpgrades[i];
+                        var upgrade = result[i];
                         sb.Append("\t ID: ");
                         sb.Append(upgrade.upgradeId);
                         sb.Append(", level: ");
@@ -154,10 +154,10 @@ namespace RGN.Sample.UI
         }
         private void OnTryParsePropertiesButtonClick()
         {
-            Debug.Log("Trying to parse the properties: " + item.properties);
+            Debug.Log("Trying to parse the json: " + item.properties);
             var propsForCurrentApp = item.properties.Find(item => item.appIds.Contains("rgn.test"));
-            string properties = propsForCurrentApp.properties;
-            WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(properties);
+            string json = propsForCurrentApp.json;
+            WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(json);
             string dtoToString = dto.ToString();
             SetEvaluationResultTextAndUpdateContentHeight(dtoToString);
             Debug.Log("Parse result: " + dtoToString);
@@ -170,10 +170,10 @@ namespace RGN.Sample.UI
                 return;
             }
             var propsForCurrentApp = item.properties.Find(item => item.appIds.Contains("rgn.test"));
-            string properties = propsForCurrentApp.properties;
+            string properties = propsForCurrentApp.json;
             if (string.IsNullOrWhiteSpace(properties))
             {
-                ShowPopupAndPrintErrorMessage("Error: The item properties are null or white space");
+                ShowPopupAndPrintErrorMessage("Error: The item json are null or white space");
                 return;
             }
             try
@@ -187,10 +187,10 @@ namespace RGN.Sample.UI
                 //{
                 //    upgradeLevelIndex = result.itemUpgrades[0].upgradeLevel;
                 //}
-                //WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(properties);
+                //WeaponDTO dto = JsonUtility.FromJson<WeaponDTO>(json);
                 //if (upgradeLevelIndex < 0 || upgradeLevelIndex >= dto.Upgrades.Length)
                 //{
-                //    ShowPopupAndPrintErrorMessage("Error: Current upgrade level exists the upgrades in properties: " + upgradeLevelIndex);
+                //    ShowPopupAndPrintErrorMessage("Error: Current upgrade level exists the upgrades in json: " + upgradeLevelIndex);
                 //    return;
                 //}
 

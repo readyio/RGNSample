@@ -25,7 +25,7 @@ namespace RGN.Sample.UI
             itemTemplate.gameObject.SetActive(false);
         }
 
-        public void Init(string[] itemIds, Action<List<string>> onSelect)
+        public void Init(List<string> itemIds, Action<List<string>> onSelect)
         {
             this.onSelect = onSelect;
             
@@ -35,7 +35,7 @@ namespace RGN.Sample.UI
             }
             items.Clear();
             
-            for (var i = 0; i < itemIds.Length; i++)
+            for (var i = 0; i < itemIds.Count; i++)
             {
                 StoreTestPopUpItemSelectorItem item = Instantiate(itemTemplate, itemContent);
                 item.gameObject.SetActive(true);
