@@ -1,5 +1,6 @@
 ﻿using System;
 using RGN.Modules.GameProgress;
+using RGN.Modules.SignIn;
 using RGN.Modules.UserProfile;
 using TMPro;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace RGN.Sample.UI
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                UserProfileModule<GameUserFullProfileData>.I.PingAsync();
+                EmailSignInModule.I.SignOut();
             }
         }
 

@@ -31,9 +31,7 @@ namespace RGN.Sample.UI
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
             
-            List<VirtualItem> virtualItems = await VirtualItemsModule.I.GetAllVirtualItemsByAppIdsAsync(
-                new List<string> { "io.getready.rgntest" },
-                1000);
+            List<VirtualItem> virtualItems = await VirtualItemsModule.I.GetVirtualItemsAsync();
 
             foreach (VirtualItem virtualItem in virtualItems)
             {

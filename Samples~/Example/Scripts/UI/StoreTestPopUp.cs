@@ -102,6 +102,7 @@ namespace RGN.Sample.UI
                     .GetComponent<StoreTestPopUpPriceSelector>();
 
                 List<PriceInfo> prices = storeOffer.prices
+                    .Where(price => price.appIds != null && price.appIds.Contains(RGNCoreBuilder.I.AppIDForRequests))
                     .Where(price => itemIds.Contains(price.itemId))
                     .ToList();
                 List<PriceInfo> preparedPrices = PreparePrices(prices, currentOrderItems);
@@ -125,7 +126,9 @@ namespace RGN.Sample.UI
             var priceSelector = GetSubWindowGO(SubWindow.PriceSelector)
                 .GetComponent<StoreTestPopUpPriceSelector>();
             
-            List<PriceInfo> prices = virtualItem.prices;
+            List<PriceInfo> prices = virtualItem.prices
+                .Where(price => price.appIds != null && price.appIds.Contains(RGNCoreBuilder.I.AppIDForRequests))
+                .ToList();
             List<List<PriceInfo>> groupedPrices = GroupPrices(prices);
             
             priceSelector.Init(groupedPrices, currencies => {
@@ -216,6 +219,7 @@ namespace RGN.Sample.UI
                 else
                 {
                     var newPreparedPrice = new PriceInfo(
+                        price.appIds,
                         price.itemId,
                         price.name,
                         price.quantity,
