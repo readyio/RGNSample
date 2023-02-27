@@ -31,7 +31,7 @@ namespace RGN.Sample
             I = this;
             RGNCoreBuilder.AddModule(new EmailSignInModule());
             RGNCoreBuilder.AddModule(new GuestSignInModule());
-            RGNCoreBuilder.AddModule(new UserProfileModule<GameUserFullProfileData>());
+            RGNCoreBuilder.AddModule(new UserProfileModule());
             RGNCoreBuilder.AddModule(new CurrencyModule());
             RGNCoreBuilder.AddModule(new GameProgressModule());
             RGNCoreBuilder.AddModule(new InventoryModule());
