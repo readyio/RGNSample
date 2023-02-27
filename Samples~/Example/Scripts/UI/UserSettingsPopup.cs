@@ -31,7 +31,8 @@ namespace RGN.Sample.UI
             SetAllAuthenticationButton(false);
             signOutButton.gameObject.SetActive(false);
 
-            if (RGNCoreBuilder.I.AuthorizedProviders != 0)
+            if (RGNCoreBuilder.I.AuthorizedProviders != EnumAuthProvider.Guest &&
+                RGNCoreBuilder.I.AuthorizedProviders != EnumAuthProvider.None)
             {
                 signOutButton.gameObject.SetActive(true);
             }
