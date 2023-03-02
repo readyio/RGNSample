@@ -80,7 +80,7 @@ namespace RGN.Sample.UI
 
             foreach (Currency currency in currencies)
             {
-                result += "/n" + currency.name + " : " + currency.quantity.ToString();
+                result += "\n" + currency.name + " : " + currency.quantity.ToString();
             }
 
             PopupMessage popupMessage = new PopupMessage() {

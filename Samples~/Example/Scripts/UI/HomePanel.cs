@@ -23,14 +23,6 @@ namespace RGN.Sample.UI
         [SerializeField] private Button matchmakingTestButton;
         [SerializeField] private Button settingsButton;
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                EmailSignInModule.I.SignOut();
-            }
-        }
-
         public override void Show(bool isInstant, Action onComplete)
         {
             settingsButton.onClick.AddListener(OnSettingsButtonClick);

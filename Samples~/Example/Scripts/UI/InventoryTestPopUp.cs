@@ -61,7 +61,7 @@ namespace RGN.Sample.UI
         private async Task<List<string>> GetVirtualItemsInventoryIdsAsync() {
             List<string> virtualItemsIds = new List<string>();
 
-            var userVirtualItems = await InventoryModule.I.GetByAppIdAsync(RGNCoreBuilder.I.AppIDForRequests);
+            var userVirtualItems = await InventoryModule.I.GetAllForCurrentAppAsync();
 
             foreach (var inventoryData in userVirtualItems)
             {
