@@ -15,13 +15,23 @@ namespace RGN.Sample.UI
         [SerializeField] private Button closeButton;
         [SerializeField] private Button playerAvatarButton;
 
-        public override void Show(bool isInstant, Action onComplete)
+        public override async void Show(bool isInstant, Action onComplete)
         {
             saveButton.onClick.AddListener(OnSaveClick);
             closeButton.onClick.AddListener(OnCloseClick);
             playerAvatarButton.onClick.AddListener(OnEditAvatarClick);
             playerNameInput.text = ProfileController.CurrentUserData.displayName;
+
             base.Show(isInstant, onComplete);
+            
+            byte[] profilePictureBytes = await UserProfileModule.I.DownloadAvatarImageAsync(ProfileController.CurrentUserData.userId);
+            if (profilePictureBytes != null)
+            {
+                Texture2D texture = new Texture2D(1, 1);
+                texture.LoadImage(profilePictureBytes);
+                texture.Apply();
+                playerAvatar.texture = texture;
+            }
         }
         public override void Hide(bool isInstant, Action onComplete)
         {
@@ -35,14 +45,14 @@ namespace RGN.Sample.UI
         {
             // We are using Native Gallery https://github.com/yasirkula/UnityNativeGallery
             // You can use Whatever library you want to use for accessing picture from user's device.
-            /* 
+            
             SetActiveSpinner(true);
-            NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) =>
+            NativeGallery.Permission permission = NativeGallery.GetImageFromGallery(async (path) =>
             {
                 if (path != null)
                 {
                     // Create Texture from selected image
-                    Texture2D texture = NativeGallery.LoadImageAtPath(path, 512);
+                    Texture2D texture = NativeGallery.LoadImageAtPath(path, 512, false);
                     if (texture == null)
                     {
                         Debug.Log("Couldn't load texture from " + path);
@@ -50,17 +60,17 @@ namespace RGN.Sample.UI
                         return;
                     }
 
-                    texture = TextureUtils.DuplicateTexture(texture);
-                    texture = TextureUtils.CropTexture(texture, 200, 200);
-
-                    UpdateAvatar(texture);
+                    await UserProfileModule.I.UploadAvatarImageAsync(texture.EncodeToPNG());
+                    playerAvatar.texture = texture;
+                    
+                    SetActiveSpinner(false);
                 }
                 else
                 {
                     SetActiveSpinner(false);
                 }
             }, "Select a PNG image", "image/png");
-            */
+            
         }
 
         public void OnPlayerNameInputValueChange(string val)
