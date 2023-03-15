@@ -25,7 +25,7 @@ namespace RGN.Sample.UI
             closeButton.onClick.AddListener(OnCloseClick);
             base.Show(isInstant, onComplete);
         }
-
+        
         private void SetAuthenticationButtons()
         {
             SetAllAuthenticationButton(false);
@@ -85,6 +85,11 @@ namespace RGN.Sample.UI
             UIRoot.singleton.ShowPanel<LoadingPanel>();
         }
 
+        private void OnEmailLoginCancelled()
+        {
+            Debug.Log("Email login cancelled");
+        }
+        
         private async void OnAuthenticationChangedAsync(EnumLoginState enumLoginState, EnumLoginError error)
         {
             if (enumLoginState == EnumLoginState.Error || enumLoginState == EnumLoginState.Success)
@@ -137,7 +142,7 @@ namespace RGN.Sample.UI
                     {
                         UIRoot.singleton.GetPopup<GenericPopup>().ShowMessage(new PopupMessage {
                             Title = "Not Connected!",
-                            Message = "Unknown error",
+                            Message = error.ToString(),
                         });
                     }
                 }
