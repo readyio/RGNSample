@@ -152,10 +152,10 @@ namespace RGN.Sample.UI
             purchasedItems.Append($"OfferId: {purchaseResult.offerId}");
             purchasedItems.Append("Purchased items: ");
             purchasedItems.Append(Environment.NewLine);
-            for (var i = 0; i < purchaseResult.itemIds.Count; i++)
+            for (var i = 0; i < purchaseResult.items.Count; i++)
             {
-                purchasedItems.Append(purchaseResult.itemIds[i]);
-                if (i < purchaseResult.itemIds.Count - 1)
+                purchasedItems.Append(purchaseResult.items[i]);
+                if (i < purchaseResult.items.Count - 1)
                 {
                     purchasedItems.Append(",");
                 }
