@@ -28,7 +28,6 @@
   "dependencies": {
     "io.getready.rgn.core": "0.1.0",
     "io.getready.rgn.achievement": "0.1.0",
-    "io.getready.rgn.creator": "0.1.0",
     "io.getready.rgn.currency": "0.1.0",
     "io.getready.rgn.impl.firebase": "0.1.0",
     "io.getready.rgn.gameprogress": "0.1.0",
