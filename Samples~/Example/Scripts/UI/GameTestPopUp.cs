@@ -85,7 +85,7 @@ namespace RGN.Sample.UI
                 }
             };
 
-            LevelProgressResult<LevelData> levelProgressResult = await GameProgressModule.I.UpdateLevelProgressAsync(levelData, new List<Currency>()
+            var levelProgressResult = await GameProgressModule.I.UpdateUserProgressAsync(levelData, new List<Currency>()
             {
                 new Currency()
                 {
@@ -109,7 +109,7 @@ namespace RGN.Sample.UI
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            LevelProgressResult<LevelData> levelProgressResult = await GameProgressModule.I.GetLevelProgressAsync<LevelData>();
+            var levelProgressResult = await GameProgressModule.I.GetUserProgressAsync<LevelData>();
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 

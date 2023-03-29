@@ -1,7 +1,6 @@
+using System.Threading.Tasks;
 using RGN.Modules.GameProgress;
 using RGN.Modules.UserProfile;
-using System;
-using System.Threading.Tasks;
 
 namespace RGN.Sample
 {
@@ -9,7 +8,7 @@ namespace RGN.Sample
     {
         public static GameUserFullProfileData CurrentUserData;
 
-        public static event Action OnAvatarChanged;
+        //public static event Action OnAvatarChanged;
 
         public static async Task<GameUserFullProfileData> LoadAndCacheAsync()
         {

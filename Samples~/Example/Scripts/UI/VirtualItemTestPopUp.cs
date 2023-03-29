@@ -62,7 +62,7 @@ namespace RGN.Sample.UI
         {
             SetEvaluationResultTextAndUpdateContentHeight(item.ToString());
         }
-        private async void OnGetUpgradesButtonClick()
+        private void OnGetUpgradesButtonClick()
         {
             if (!doesUserOwnTheItem)
             {
@@ -162,7 +162,7 @@ namespace RGN.Sample.UI
             SetEvaluationResultTextAndUpdateContentHeight(dtoToString);
             Debug.Log("Parse result: " + dtoToString);
         }
-        private async void OnPrintCurrentUpgradeValuesPlusNextButtonClick()
+        private void OnPrintCurrentUpgradeValuesPlusNextButtonClick()
         {
             if (!doesUserOwnTheItem)
             {
