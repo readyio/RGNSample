@@ -23,7 +23,7 @@ namespace RGN.Sample.UI
             triggerButton.onClick.AddListener(HandleTriggerButtonClick);
         }
 
-        public void Init(RGNAchievementDataV2 data)
+        public void Init(AchievementData data)
         {
             achievementId = data.achievementId;
 

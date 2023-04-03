@@ -21,10 +21,10 @@ namespace RGN.Sample.UI
             closeButton.onClick.AddListener(OnCloseClick);
             base.Show(isInstant, onComplete);
 
-            Init();
+            InitAsync();
         }
 
-        private async void Init()
+        private async void InitAsync()
         {
             itemTemplate.SetActive(false);
 
@@ -36,15 +36,15 @@ namespace RGN.Sample.UI
 
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            List<RGNAchievementDataV2> achievements = await AchievementsModule.I.GetAsync();
-            foreach (RGNAchievementDataV2 achievement in achievements)
+            List<AchievementData> achievements = await AchievementsModule.I.GetAsync();
+            foreach (AchievementData achievement in achievements)
             {
                 GameObject itemGO = Instantiate(itemTemplate, itemContent);
                 itemGO.SetActive(true);
 
                 AchievementsTestPopUpItem item = itemGO.GetComponent<AchievementsTestPopUpItem>();
                 item.Init(achievement);
-                item.OnTriggerButtonClick += OnTriggerButtonClick;
+                item.OnTriggerButtonClick += OnTriggerButtonClickAsync;
 
                 items.Add(item);
             }
@@ -52,7 +52,7 @@ namespace RGN.Sample.UI
             UIRoot.singleton.HidePopup<SpinnerPopup>();
         }
 
-        private async void OnTriggerButtonClick(string achievementId)
+        private async void OnTriggerButtonClickAsync(string achievementId)
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
@@ -68,7 +68,7 @@ namespace RGN.Sample.UI
 
             UIRoot.singleton.HidePopup<SpinnerPopup>();
 
-            Init();
+            InitAsync();
         }
 
         public void OnCloseClick()
