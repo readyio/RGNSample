@@ -36,7 +36,7 @@ namespace RGN.Sample.UI
 
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            List<AchievementData> achievements = await AchievementsModule.I.GetAsync();
+            List<AchievementData> achievements = await AchievementsModule.I.GetForCurrentAppAsync(10);
             foreach (AchievementData achievement in achievements)
             {
                 GameObject itemGO = Instantiate(itemTemplate, itemContent);
