@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using RGN.Modules.GameProgress;
 using RGN.Modules.SignIn;
 using RGN.Modules.UserProfile;
@@ -20,7 +20,6 @@ namespace RGN.Sample.UI
         [SerializeField] private Button inAppPurchaseTestButton;
         [SerializeField] private Button achievementsTestButton;
         [SerializeField] private Button walletsTestButton;
-        [SerializeField] private Button matchmakingTestButton;
         [SerializeField] private Button settingsButton;
 
         public override void Show(bool isInstant, Action onComplete)
@@ -34,7 +33,6 @@ namespace RGN.Sample.UI
             inAppPurchaseTestButton.onClick.AddListener(OnInAppPurchasesTestButtonClick);
             achievementsTestButton.onClick.AddListener(OnAchievementsTestButtonClick);
             walletsTestButton.onClick.AddListener(OnWalletsTestButtonClick);
-            matchmakingTestButton.onClick.AddListener(OnMatchmakingTestButtonClick);
             Refresh();
             base.Show(isInstant, onComplete);
         }
@@ -55,7 +53,6 @@ namespace RGN.Sample.UI
             inAppPurchaseTestButton.onClick.RemoveListener(OnInAppPurchasesTestButtonClick);
             achievementsTestButton.onClick.RemoveListener(OnAchievementsTestButtonClick);
             walletsTestButton.onClick.RemoveListener(OnWalletsTestButtonClick);
-            matchmakingTestButton.onClick.RemoveListener(OnMatchmakingTestButtonClick);
             base.Hide(isInstant, onComplete);
         }
 
@@ -102,11 +99,6 @@ namespace RGN.Sample.UI
         public void OnWalletsTestButtonClick() 
         {
             UIRoot.singleton.ShowPopup<WalletsTestPopUp>();
-        }
-        
-        public void OnMatchmakingTestButtonClick() 
-        {
-            UIRoot.singleton.ShowPopup<MatchmakingTestPopUp>();
         }
     }
 }
