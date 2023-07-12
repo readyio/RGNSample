@@ -56,7 +56,7 @@ namespace RGN.Sample.UI
         {
             UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            await AchievementsModule.I.TriggerAsync(achievementId);
+            await AchievementsModule.I.TriggerByIdAsync(achievementId);
 
             PopupMessage popupMessage = new PopupMessage()
             {
