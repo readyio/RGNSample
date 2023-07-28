@@ -1,2 +1,2 @@
 # RGN Sample
-Package version: 0.7.0-dev.305
+Package version: 0.7.0-dev.306
