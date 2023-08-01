@@ -56,8 +56,7 @@ namespace RGN.Sample.UI
                             //Successfull login
                             Bootstrap.I.DisplayMessage("Success login and user \n" +
                                 "UID :" + userProfileData.userId + "\n" +
-                                "Display Name :" + userProfileData.displayName + "\n" +
-                                "Short UID :" + userProfileData.shortUID + "\n");
+                                "Display Name :" + userProfileData.displayName + "\n");
                             Hide(true, null);
                             UIRoot.singleton.ShowPanel<HomePanel>();
                         }
