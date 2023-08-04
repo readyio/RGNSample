@@ -10,13 +10,13 @@ namespace RGN.Sample.UI
         {
             if (Bootstrap.I.FirebaseBuilded)
             {
-                RGNCore.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
+                RGNCore.I.AuthenticationChanged += OnAuthenticationChangedAsync;
                 GuestSignInModule.I.TryToSignIn();
             }
             else
             {
                 Bootstrap.I.CreateInstance();
-                RGNCore.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
+                RGNCore.I.AuthenticationChanged += OnAuthenticationChangedAsync;
                 await Bootstrap.I.BuildAsync();
 
                 string instanceId = await Firebase.Analytics.FirebaseAnalytics.GetAnalyticsInstanceIdAsync();
@@ -28,17 +28,17 @@ namespace RGN.Sample.UI
 
         public override void Hide(bool isInstant, Action onComplete)
         {
-            RGNCore.I.AuthenticationChanged -= FirebaseManager_OnAuthenticationChanged;
+            RGNCore.I.AuthenticationChanged -= OnAuthenticationChangedAsync;
             base.Hide(isInstant, onComplete);
         }
 
 
-        private async void FirebaseManager_OnAuthenticationChanged(EnumLoginState enumLoginState, EnumLoginError error)
+        private async void OnAuthenticationChangedAsync(AuthState authState)
         {
-            switch (enumLoginState)
+            switch (authState.LoginState)
             {
                 case EnumLoginState.Error:
-                    Bootstrap.I.DisplayMessage("Failed: " + error.ToString());
+                    Bootstrap.I.DisplayMessage("Failed: " + authState.LoginResult.ToString());
                     break;
                 case EnumLoginState.Success:
                     {
