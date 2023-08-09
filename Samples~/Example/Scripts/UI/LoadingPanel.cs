@@ -11,7 +11,7 @@ namespace RGN.Sample.UI
             if (Bootstrap.I.FirebaseBuilded)
             {
                 RGNCore.I.AuthenticationChanged += OnAuthenticationChangedAsync;
-                GuestSignInModule.I.TryToSignIn();
+                GuestSignInModule.I.TryToSignInAsync();
             }
             else
             {
@@ -68,7 +68,7 @@ namespace RGN.Sample.UI
                 case EnumLoginState.NotLoggedIn:
                     {
                         Bootstrap.I.DisplayMessage("User Not Logged In");
-                        GuestSignInModule.I.TryToSignIn();
+                        GuestSignInModule.I.TryToSignInAsync();
                     }
                     break;
             }
