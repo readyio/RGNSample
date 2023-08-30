@@ -47,7 +47,7 @@ namespace RGN.Sample.UI
                         {
                             Bootstrap.I.DisplayMessage("Error: No Account found");
                             //No Account found, Signout current user. 
-                            RGNCore.I.SignOutRGN();
+                            GuestSignInModule.I.SignOut();
 
                             return;
                         }
