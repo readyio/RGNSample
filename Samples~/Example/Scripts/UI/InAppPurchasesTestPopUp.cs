@@ -102,7 +102,7 @@ namespace RGN.Sample.UI
             // we don't do purchase validation on your side
             // You will get isoCurrenyCode and localizedPrice from Unity IAP product's metadata
             // More details : https://docs.unity3d.com/Manual/UnityIAPBrowsingMetadata.html
-            var currencies = await CurrencyModule.I.PurchaseRGNCoinAsync(iapUUID);
+            var currencies = await CurrencyModule.I.PurchaseRGNCoinAsync(iapUUID, string.Empty, string.Empty);
 
             string result = "";
             foreach (Currency currency in currencies)
