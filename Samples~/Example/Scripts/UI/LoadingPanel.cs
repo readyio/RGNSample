@@ -10,13 +10,13 @@ namespace RGN.Sample.UI
         {
             if (Bootstrap.I.FirebaseBuilded)
             {
-                RGNCore.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
-                GuestSignInModule.I.TryToSignIn();
+                RGNCore.I.AuthenticationChanged += OnAuthenticationChangedAsync;
+                GuestSignInModule.I.TryToSignInAsync();
             }
             else
             {
                 Bootstrap.I.CreateInstance();
-                RGNCore.I.AuthenticationChanged += FirebaseManager_OnAuthenticationChanged;
+                RGNCore.I.AuthenticationChanged += OnAuthenticationChangedAsync;
                 await Bootstrap.I.BuildAsync();
 
                 string instanceId = await Firebase.Analytics.FirebaseAnalytics.GetAnalyticsInstanceIdAsync();
@@ -28,17 +28,17 @@ namespace RGN.Sample.UI
 
         public override void Hide(bool isInstant, Action onComplete)
         {
-            RGNCore.I.AuthenticationChanged -= FirebaseManager_OnAuthenticationChanged;
+            RGNCore.I.AuthenticationChanged -= OnAuthenticationChangedAsync;
             base.Hide(isInstant, onComplete);
         }
 
 
-        private async void FirebaseManager_OnAuthenticationChanged(EnumLoginState enumLoginState, EnumLoginError error)
+        private async void OnAuthenticationChangedAsync(AuthState authState)
         {
-            switch (enumLoginState)
+            switch (authState.LoginState)
             {
                 case EnumLoginState.Error:
-                    Bootstrap.I.DisplayMessage("Failed: " + error.ToString());
+                    Bootstrap.I.DisplayMessage("Failed: " + authState.LoginResult.ToString());
                     break;
                 case EnumLoginState.Success:
                     {
@@ -47,7 +47,7 @@ namespace RGN.Sample.UI
                         {
                             Bootstrap.I.DisplayMessage("Error: No Account found");
                             //No Account found, Signout current user. 
-                            RGNCore.I.SignOutRGN();
+                            GuestSignInModule.I.SignOut();
 
                             return;
                         }
@@ -56,8 +56,7 @@ namespace RGN.Sample.UI
                             //Successfull login
                             Bootstrap.I.DisplayMessage("Success login and user \n" +
                                 "UID :" + userProfileData.userId + "\n" +
-                                "Display Name :" + userProfileData.displayName + "\n" +
-                                "Short UID :" + userProfileData.shortUID + "\n");
+                                "Display Name :" + userProfileData.displayName + "\n");
                             Hide(true, null);
                             UIRoot.singleton.ShowPanel<HomePanel>();
                         }
@@ -69,7 +68,7 @@ namespace RGN.Sample.UI
                 case EnumLoginState.NotLoggedIn:
                     {
                         Bootstrap.I.DisplayMessage("User Not Logged In");
-                        GuestSignInModule.I.TryToSignIn();
+                        GuestSignInModule.I.TryToSignInAsync();
                     }
                     break;
             }

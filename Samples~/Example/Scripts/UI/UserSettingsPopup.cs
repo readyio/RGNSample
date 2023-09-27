@@ -76,7 +76,7 @@ namespace RGN.Sample.UI
             SetActiveSpinner(true);
         }
 
-        private void OnAuthenticationChanged_SignOut(EnumLoginState enumLoginState, EnumLoginError error)
+        private void OnAuthenticationChanged_SignOut(AuthState authState)
         {
             RGNCoreBuilder.I.AuthenticationChanged -= OnAuthenticationChanged_SignOut;
             UIRoot.singleton.HideAllPanels();
@@ -90,13 +90,13 @@ namespace RGN.Sample.UI
             Debug.Log("Email login cancelled");
         }
         
-        private async void OnAuthenticationChangedAsync(EnumLoginState enumLoginState, EnumLoginError error)
+        private async void OnAuthenticationChangedAsync(AuthState authState)
         {
-            if (enumLoginState == EnumLoginState.Error || enumLoginState == EnumLoginState.Success)
+            if (authState.LoginState == EnumLoginState.Error || authState.LoginState == EnumLoginState.Success)
             {
                 RGNCoreBuilder.I.AuthenticationChanged -= OnAuthenticationChangedAsync;
 
-                if (enumLoginState == EnumLoginState.Success)
+                if (authState.LoginState == EnumLoginState.Success)
                 {
                     await ProfileController.LoadAndCacheAsync();
 
@@ -106,11 +106,11 @@ namespace RGN.Sample.UI
 
                 SetActiveSpinner(false);
 
-                if (enumLoginState == EnumLoginState.Error)
+                if (authState.LoginState == EnumLoginState.Error)
                 {
-                    Debug.Log($"enumLoginState: {enumLoginState}, error: {error}");
+                    Debug.Log($"enumLoginState: {authState.LoginState}, error: {authState.LoginResult}");
 
-                    if (error == EnumLoginError.AccountAlreadyLinked)
+                    if (authState.LoginResult == EnumLoginResult.AccountAlreadyLinked)
                     {
                         string message = $"Switching to this {tryConnectProvider} account will override current player settings.";
 
@@ -131,7 +131,7 @@ namespace RGN.Sample.UI
                             }
                         });
                     }
-                    else if (error == EnumLoginError.AccountExistsWithDifferentCredentials)
+                    else if (authState.LoginResult == EnumLoginResult.AccountExistsWithDifferentCredentials)
                     {
                         UIRoot.singleton.GetPopup<GenericPopup>().ShowMessage(new PopupMessage {
                             Title = "Not Connected!",
@@ -142,7 +142,7 @@ namespace RGN.Sample.UI
                     {
                         UIRoot.singleton.GetPopup<GenericPopup>().ShowMessage(new PopupMessage {
                             Title = "Not Connected!",
-                            Message = error.ToString(),
+                            Message = authState.LoginResult.ToString(),
                         });
                     }
                 }

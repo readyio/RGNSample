@@ -25,7 +25,7 @@ namespace RGN.Sample.UI
 
         public void Init(AchievementData data)
         {
-            achievementId = data.achievementId;
+            achievementId = data.id;
 
             idText.text = achievementId;
             baseImage.color = Color.white;

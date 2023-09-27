@@ -1,6 +1,7 @@
 using RGN.Modules.GameProgress;
 using RGN.Modules.UserProfile;
 using System;
+using RGN.Model;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +25,8 @@ namespace RGN.Sample.UI
 
             base.Show(isInstant, onComplete);
             
-            byte[] profilePictureBytes = await UserProfileModule.I.DownloadAvatarImageAsync(ProfileController.CurrentUserData.userId);
+            byte[] profilePictureBytes = await UserProfileModule.I
+                .DownloadAvatarImageAsync(ProfileController.CurrentUserData.userId, ImageSize.Small);
             if (profilePictureBytes != null)
             {
                 Texture2D texture = new Texture2D(1, 1);
