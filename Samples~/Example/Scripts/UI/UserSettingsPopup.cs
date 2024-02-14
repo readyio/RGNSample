@@ -69,13 +69,6 @@ namespace RGN.Sample.UI
             SetActiveSpinner(true);
         }
 
-        public void OnGuestLogout()
-        {
-            RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChanged_SignOut;
-            GuestSignInModule.I.SignOut();
-            SetActiveSpinner(true);
-        }
-
         private void OnAuthenticationChanged_SignOut(AuthState authState)
         {
             RGNCoreBuilder.I.AuthenticationChanged -= OnAuthenticationChanged_SignOut;
@@ -92,6 +85,11 @@ namespace RGN.Sample.UI
         
         private async void OnAuthenticationChangedAsync(AuthState authState)
         {
+            if ((authState.AuthProvider & EnumAuthProvider.Guest) == EnumAuthProvider.Guest)
+            {
+                return;
+            }
+            
             if (authState.LoginState == EnumLoginState.Error || authState.LoginState == EnumLoginState.Success)
             {
                 RGNCoreBuilder.I.AuthenticationChanged -= OnAuthenticationChangedAsync;
@@ -99,7 +97,6 @@ namespace RGN.Sample.UI
                 if (authState.LoginState == EnumLoginState.Success)
                 {
                     await ProfileController.LoadAndCacheAsync();
-
                     UIRoot.singleton.ShowPanel<HomePanel>();
                     SetAuthenticationButtons();
                 }

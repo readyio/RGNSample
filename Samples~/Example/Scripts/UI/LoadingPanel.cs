@@ -31,8 +31,7 @@ namespace RGN.Sample.UI
             RGNCore.I.AuthenticationChanged -= OnAuthenticationChangedAsync;
             base.Hide(isInstant, onComplete);
         }
-
-
+        
         private async void OnAuthenticationChangedAsync(AuthState authState)
         {
             switch (authState.LoginState)
