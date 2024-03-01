@@ -59,7 +59,7 @@ namespace RGN.Sample.UI
         {
             RGNCoreBuilder.I.AuthenticationChanged += OnAuthenticationChangedAsync;
             tryConnectProvider = EnumAuthProvider.Email;
-            EmailSignInModule.I.TryToSignIn();
+            EmailSignInModule.I.TryToSignIn(success => Debug.Log($"EmailSignIn callback, success: {success}"));
         }
 
         public void OnEmailLogout()
