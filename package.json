@@ -29,7 +29,6 @@
     "io.getready.rgn.core": "0.9.0",
     "io.getready.rgn.achievement": "0.9.0",
     "io.getready.rgn.currency": "0.9.0",
-    "io.getready.rgn.impl.firebase": "0.9.0",
     "io.getready.rgn.gameprogress": "0.9.0",
     "io.getready.rgn.inventory": "0.9.0",
     "io.getready.rgn.matchmaking": "0.9.0",

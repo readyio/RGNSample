@@ -19,7 +19,7 @@ namespace RGN.Sample.UI
                 RGNCore.I.AuthenticationChanged += OnAuthenticationChangedAsync;
                 await Bootstrap.I.BuildAsync();
 
-                string instanceId = await Firebase.Analytics.FirebaseAnalytics.GetAnalyticsInstanceIdAsync();
+                string instanceId = await RGNCore.I.Dependencies.Analytics.GetAnalyticsInstanceIdAsync();
                 UnityEngine.Debug.Log("instanceId: " + instanceId);
             }
 
