@@ -33,62 +33,62 @@ namespace RGN.Sample.UI
 
         public async void OnIsUserHavePrimaryWalletButtonClick()
         {
-            UIRoot.singleton.ShowPopup<SpinnerPopup>();
+            //UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            IsUserHavePrimaryWalletResponseData response = await WalletsModule.I.IsUserHavePrimaryWalletAsync();
+            //IsUserHavePrimaryWalletResponseData response = await WalletsModule.I.IsUserHavePrimaryWalletAsync();
 
-            UIRoot.singleton.HidePopup<SpinnerPopup>();
+            //UIRoot.singleton.HidePopup<SpinnerPopup>();
 
-            PopupMessage popupMessage = new PopupMessage()
-            {
-                Message = JsonUtility.ToJson(response)
-            };
-            GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
-            genericPopup.ShowMessage(popupMessage);
-            UIRoot.singleton.ShowPopup<GenericPopup>();
+            //PopupMessage popupMessage = new PopupMessage()
+            //{
+            //    Message = JsonUtility.ToJson(response)
+            //};
+            //GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
+            //genericPopup.ShowMessage(popupMessage);
+            //UIRoot.singleton.ShowPopup<GenericPopup>();
         }
 
         public async void OnGetUserWalletsButtonClick()
         {
-            UIRoot.singleton.ShowPopup<SpinnerPopup>();
+            //UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            GetUserWalletsResponseData response = await WalletsModule.I.GetUserWalletsAsync();
+            //GetUserWalletsResponseData response = await WalletsModule.I.GetUserWalletsAsync();
 
-            UIRoot.singleton.HidePopup<SpinnerPopup>();
+            //UIRoot.singleton.HidePopup<SpinnerPopup>();
 
-            PopupMessage popupMessage = new PopupMessage()
-            {
-                Message = JsonUtility.ToJson(response)
-            };
-            GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
-            genericPopup.ShowMessage(popupMessage);
-            UIRoot.singleton.ShowPopup<GenericPopup>();
+            //PopupMessage popupMessage = new PopupMessage()
+            //{
+            //    Message = JsonUtility.ToJson(response)
+            //};
+            //GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
+            //genericPopup.ShowMessage(popupMessage);
+            //UIRoot.singleton.ShowPopup<GenericPopup>();
         }
 
         public async void OnCreateUserWalletButtonClick()
         {
-            string password = createWalletPasswordInput.text;
-            if (string.IsNullOrEmpty(password))
-            {
-                createWalletPasswordRequireImage.gameObject.SetActive(true);
-                return;
-            }
+            //string password = createWalletPasswordInput.text;
+            //if (string.IsNullOrEmpty(password))
+            //{
+            //    createWalletPasswordRequireImage.gameObject.SetActive(true);
+            //    return;
+            //}
 
-            createWalletPasswordRequireImage.gameObject.SetActive(false);
+            //createWalletPasswordRequireImage.gameObject.SetActive(false);
 
-            UIRoot.singleton.ShowPopup<SpinnerPopup>();
+            //UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
-            CreateWalletResponseData response = await WalletsModule.I.CreateWalletAsync(password);
+            //CreateWalletResponseData response = await WalletsModule.I.CreateWalletAsync(password);
 
-            UIRoot.singleton.HidePopup<SpinnerPopup>();
+            //UIRoot.singleton.HidePopup<SpinnerPopup>();
 
-            PopupMessage popupMessage = new PopupMessage()
-            {
-                Message = JsonUtility.ToJson(response)
-            };
-            GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
-            genericPopup.ShowMessage(popupMessage);
-            UIRoot.singleton.ShowPopup<GenericPopup>();
+            //PopupMessage popupMessage = new PopupMessage()
+            //{
+            //    Message = JsonUtility.ToJson(response)
+            //};
+            //GenericPopup genericPopup = UIRoot.singleton.GetPopup<GenericPopup>();
+            //genericPopup.ShowMessage(popupMessage);
+            //UIRoot.singleton.ShowPopup<GenericPopup>();
         }
 
         public void OnCloseClick()
