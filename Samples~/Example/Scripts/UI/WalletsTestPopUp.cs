@@ -31,7 +31,7 @@ namespace RGN.Sample.UI
             cancelButton.onClick.AddListener(OnCloseClick);
         }
 
-        public async void OnIsUserHavePrimaryWalletButtonClick()
+        public void OnIsUserHavePrimaryWalletButtonClick()
         {
             //UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
@@ -48,7 +48,7 @@ namespace RGN.Sample.UI
             //UIRoot.singleton.ShowPopup<GenericPopup>();
         }
 
-        public async void OnGetUserWalletsButtonClick()
+        public void OnGetUserWalletsButtonClick()
         {
             //UIRoot.singleton.ShowPopup<SpinnerPopup>();
 
@@ -65,7 +65,7 @@ namespace RGN.Sample.UI
             //UIRoot.singleton.ShowPopup<GenericPopup>();
         }
 
-        public async void OnCreateUserWalletButtonClick()
+        public void OnCreateUserWalletButtonClick()
         {
             //string password = createWalletPasswordInput.text;
             //if (string.IsNullOrEmpty(password))
