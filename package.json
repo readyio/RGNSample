@@ -1,7 +1,7 @@
 ﻿{
   "name": "io.getready.rgn.sample",
   "displayName": "Ready Games Network SDK. Sample",
-  "version": "0.9.2",
+  "version": "0.10.0",
   "unity": "2020.3",
   "description": "The Ready Games Network (RGN) is building mobile-first Web3 tools and technologies to democratize access to game creation.",
   "author": {
@@ -26,17 +26,17 @@
   ],
   "type": "sample",
   "dependencies": {
-    "io.getready.rgn.core": "0.9.2",
-    "io.getready.rgn.achievement": "0.9.2",
-    "io.getready.rgn.currency": "0.9.2",
-    "io.getready.rgn.gameprogress": "0.9.2",
-    "io.getready.rgn.inventory": "0.9.2",
-    "io.getready.rgn.matchmaking": "0.9.2",
-    "io.getready.rgn.messaging": "0.9.2",
-    "io.getready.rgn.signin.email": "0.9.2",
-    "io.getready.rgn.signin.guest": "0.9.2",
-    "io.getready.rgn.userprofile": "0.9.2",
-    "io.getready.rgn.virtualitems": "0.9.2",
-    "io.getready.rgn.wallets": "0.9.2"
+    "io.getready.rgn.core": "0.10.0",
+    "io.getready.rgn.achievement": "0.10.0",
+    "io.getready.rgn.currency": "0.10.0",
+    "io.getready.rgn.gameprogress": "0.10.0",
+    "io.getready.rgn.inventory": "0.10.0",
+    "io.getready.rgn.matchmaking": "0.10.0",
+    "io.getready.rgn.messaging": "0.10.0",
+    "io.getready.rgn.signin.email": "0.10.0",
+    "io.getready.rgn.signin.guest": "0.10.0",
+    "io.getready.rgn.userprofile": "0.10.0",
+    "io.getready.rgn.virtualitems": "0.10.0",
+    "io.getready.rgn.wallets": "0.10.0"
   }
 }
